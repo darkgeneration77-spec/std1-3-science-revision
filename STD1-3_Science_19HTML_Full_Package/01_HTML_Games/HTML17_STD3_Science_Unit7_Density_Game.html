@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>标准三科学｜单元7 密度｜浮沉密度实验港</title>
+<style>
+:root{
+  --ink:#203d56;--muted:#708598;--water:#65c9ff;--deep:#4c8cff;--mint:#63cfaa;
+  --gold:#ffd66d;--violet:#8b7cff;--good:#53c98b;--bad:#ff747c;
+  --shadow:0 18px 45px rgba(39,79,112,.15)
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#edf9ff;color:var(--ink)}
+button{font:inherit}
+body{
+ background:
+ radial-gradient(circle at 8% 5%,#fff2bd 0 8%,transparent 9%),
+ radial-gradient(circle at 92% 5%,#e3e8ff 0 11%,transparent 12%),
+ linear-gradient(180deg,#e9f8ff,#f9fcff 78%);
+}
+.app{min-height:100vh;max-width:1180px;margin:auto;padding:18px}
+.top{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border:1px solid #d9eaf3;
+ border-radius:22px;padding:12px 16px;box-shadow:var(--shadow);position:sticky;top:10px;z-index:30
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}
+.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#64c8ff,#4d8cff);color:#fff;font-weight:1000}
+.stats{display:flex;gap:8px;flex-wrap:wrap}.badge{background:#f2f9fd;border:1px solid #d9e9f3;border-radius:999px;padding:8px 11px;font-weight:800;font-size:.88rem}
+.progress{height:8px;background:#dcecf4;border-radius:99px;overflow:hidden;margin:12px 3px 0}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#62d1b0,#65c6ff);transition:.35s}
+.screen{display:none;animation:fade .25s ease}.screen.active{display:block}
+@keyframes fade{from{opacity:.15;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hero{
+ margin-top:18px;min-height:620px;border-radius:34px;padding:42px;
+ background:linear-gradient(135deg,#e5f9ff,#eef3ff 54%,#fff8dd);
+ border:1px solid #dceaf2;box-shadow:var(--shadow)
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;min-height:520px}
+.kicker{display:inline-block;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid #dfeaf2;font-weight:900;color:#5d768a}
+h1{font-size:clamp(2.8rem,7vw,6rem);line-height:.94;margin:18px 0;letter-spacing:-.04em}
+h1 small{display:block;font-size:.28em;letter-spacing:.11em;color:#6d8294;margin-top:16px}
+.lead{font-size:1.1rem;line-height:1.75;color:#60798b;max-width:620px}
+.primary,.secondary{border:0;border-radius:16px;padding:14px 20px;font-weight:1000;cursor:pointer;transition:.2s}
+.primary{background:linear-gradient(135deg,#62c8ff,#587dff);color:#fff;box-shadow:0 10px 24px rgba(75,114,211,.22)}
+.secondary{background:#fff;color:#40596b;border:1px solid #d8e7ef}
+.primary:hover,.secondary:hover{transform:translateY(-2px)}
+
+.labart{position:relative;min-height:440px}
+.tank{
+ position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);
+ width:300px;height:330px;border:10px solid #8fbcd1;border-top:18px solid #729eb3;
+ border-radius:22px 22px 44px 44px;background:linear-gradient(to top,#72d1ff 0 63%,#f8fdff 63%);
+ overflow:hidden;box-shadow:0 20px 45px rgba(52,126,171,.18)
+}
+.floatobj{position:absolute;left:72px;top:98px;font-size:4rem;animation:bob 2.4s ease-in-out infinite}
+.sinkobj{position:absolute;right:58px;bottom:24px;font-size:4rem}
+@keyframes bob{50%{transform:translateY(7px)}}
+.bubble{position:absolute;background:#fff;border:1px solid #dceaf2;border-radius:18px;padding:12px 14px;font-weight:900;box-shadow:0 12px 24px rgba(50,82,108,.11)}
+.b1{left:1%;top:8%}.b2{right:1%;top:12%}.b3{left:1%;bottom:9%}.b4{right:1%;bottom:8%}
+
+.panel{margin-top:18px;background:#fff;border:1px solid #dceaf2;border-radius:30px;box-shadow:var(--shadow);padding:26px}
+.headrow{display:flex;justify-content:space-between;gap:18px;margin-bottom:20px}
+.headrow h2{margin:0;font-size:clamp(1.7rem,3vw,2.5rem)}
+.headrow p{margin:7px 0 0;color:var(--muted);line-height:1.6}
+.stage-tag{white-space:nowrap;background:#eef9fd;border:1px solid #d6eaf1;border-radius:999px;padding:8px 12px;font-weight:900;color:#557589}
+.grid{display:grid;gap:14px}.grid6{grid-template-columns:repeat(6,1fr)}.grid4{grid-template-columns:repeat(4,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}
+.card{
+ background:linear-gradient(180deg,#fff,#f9fcfe);border:2px solid #dfebf2;border-radius:22px;
+ padding:18px;min-height:132px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+ text-align:center;gap:8px;cursor:pointer;transition:.2s;user-select:none
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(45,83,110,.12)}
+.card.good{border-color:var(--good);background:#ecfff5}.card.bad{border-color:var(--bad);background:#fff0f1}
+.pic{font-size:3rem}.label{font-weight:1000}.sub{font-size:.86rem;color:var(--muted)}
+.drop-area{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.drop{min-height:215px;border:3px dashed #b8d8e7;border-radius:24px;padding:18px;background:#f7fbfd;display:flex;flex-direction:column;gap:10px;align-items:center}
+.drop h3{margin:0}.drop.hover{border-color:#7d7cff;background:#f3f0ff}
+.drag-item{touch-action:none;cursor:grab}.drag-item.dragging{opacity:.55}
+.question{background:linear-gradient(135deg,#f8fcfe,#fff);border:2px solid #dfebf2;border-radius:24px;padding:22px;margin-bottom:14px}
+.question h3{margin:0 0 15px;line-height:1.5}
+.options{display:grid;gap:10px}.opt{border:2px solid #dfe9ef;background:#fff;border-radius:16px;padding:13px 15px;text-align:left;font-weight:850;cursor:pointer}
+.opt.good{border-color:var(--good);background:#ecfff4}.opt.bad{border-color:var(--bad);background:#fff0f1}
+.scenario{display:grid;grid-template-columns:180px 1fr;gap:22px;align-items:center}
+.scene-art{min-height:170px;border-radius:24px;display:grid;place-items:center;font-size:4.8rem;background:linear-gradient(135deg,#e8faff,#eef3ff)}
+.density-stack{height:220px;border-radius:26px;overflow:hidden;border:5px solid #c8dce8;display:flex;flex-direction:column-reverse;margin:10px 0 18px}
+.layer{flex:1;display:grid;place-items:center;font-weight:1000}
+.oil{background:#ffe89b}.water{background:#86d8ff}.soap{background:#a4d8d0}.clay{background:#b7846e;color:#fff}
+.footer-nav{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
+.result{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;align-items:center}
+.medal{min-height:320px;border-radius:30px;background:linear-gradient(135deg,#fff2ae,#ffd979);display:grid;place-items:center;text-align:center;padding:30px;box-shadow:inset 0 0 0 8px rgba(255,255,255,.55)}
+.medal strong{font-size:5rem;display:block}
+.skills{display:grid;gap:12px}.skill{background:#f8fcfd;border:1px solid #deebef;border-radius:18px;padding:15px}
+.skillline{display:flex;justify-content:space-between;font-weight:900;margin-bottom:8px}.bar{height:10px;background:#e5eef3;border-radius:99px;overflow:hidden}.bar i{height:100%;display:block;background:linear-gradient(90deg,#61d0ad,#66bfff)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;background:#203d56ee;color:#fff;padding:12px 18px;border-radius:14px;font-weight:900;transition:.2s;z-index:99}.toast.show{opacity:1;transform:translateX(-50%)}
+
+@media(max-width:820px){
+ .app{padding:10px}.hero{padding:24px;min-height:auto}.hero-grid{grid-template-columns:1fr;min-height:auto}.labart{min-height:390px}
+ .grid6,.grid4,.grid3{grid-template-columns:1fr 1fr}.drop-area{grid-template-columns:1fr}.scenario{grid-template-columns:1fr}
+ .result{grid-template-columns:1fr}.stats .badge:first-child{display:none}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="brand"><div class="logo">S3</div><div>科学冒险｜单元 7 密度</div></div>
+  <div class="stats"><span class="badge" id="stageText">任务 1 / 6</span><span class="badge">⭐ <b id="score">0</b></span><span class="badge">❤️ <b id="lives">3</b></span></div>
+</header>
+<div class="progress"><i id="progressBar"></i></div>
+
+<section class="screen active" id="s0">
+  <div class="hero"><div class="hero-grid">
+    <div>
+      <span class="kicker">STANDARD 3 SCIENCE · 密度</span>
+      <h1>浮沉密度实验港<small>DENSITY FLOAT & SINK LAB</small></h1>
+      <p class="lead">预测物体放进水里会<b>浮或沉</b>，利用密度解释观察结果，再进行盐水鸡蛋、不同液体密度和生活应用实验。</p>
+      <button class="primary" onclick="nextScreen()">开始密度实验</button>
+    </div>
+    <div class="labart">
+      <div class="tank"><div class="floatobj">🪵</div><div class="sinkobj">🪨</div></div>
+      <div class="bubble b1">⬆ 浮</div><div class="bubble b2">⬇ 沉</div>
+      <div class="bubble b3">密度小于水 → 浮</div><div class="bubble b4">密度大于水 → 沉</div>
+    </div>
+  </div></div>
+</section>
+
+<section class="screen" id="s1">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 1｜浮还是沉？</h2><p>把原练习中的 12 个物体放到正确区域。</p></div><span class="stage-tag">Set A</span></div>
+    <div class="grid grid6" id="floatItems"></div>
+    <div class="drop-area">
+      <div class="drop" data-zone="float"><h3>浮</h3><div class="sub">物体浮在水面或水中</div></div>
+      <div class="drop" data-zone="sink"><h3>沉</h3><div class="sub">物体沉入水底</div></div>
+    </div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 返回</button><button class="primary" onclick="completeFloat()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s2">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 2｜用密度解释浮沉</h2><p>不只背答案，要把“观察”连接到“密度”。</p></div><span class="stage-tag">概念</span></div>
+    <div id="densityQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeDensity()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s3">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 3｜盐水鸡蛋实验</h2><p>根据原 Set E 的观察、推断和结论完成挑战。</p></div><span class="stage-tag">Set E</span></div>
+    <div id="eggQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeEgg()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s4">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 4｜密度排行榜</h2><p>比较食油、水、洗碗液和橡皮泥的密度。</p></div><span class="stage-tag">Set F</span></div>
+    <div class="density-stack">
+      <div class="layer clay">密度较大：橡皮泥</div>
+      <div class="layer soap">洗碗液</div>
+      <div class="layer water">水</div>
+      <div class="layer oil">密度较小：食油</div>
+    </div>
+    <div id="rankQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeRank()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s5">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 5｜密度 Boss</h2><p>预测番茄、橙皮、瓶盖和硬币，并完成实验结论。</p></div><span class="stage-tag">Set H / I · KBAT</span></div>
+    <div id="bossQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="finishGame()">查看成绩 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s6">
+  <div class="panel">
+    <div class="headrow"><div><h2>研究完成｜密度实验报告</h2><p>系统根据你的作答情况显示掌握度。</p></div><span class="stage-tag">RESULT</span></div>
+    <div class="result">
+      <div class="medal"><div><strong>★</strong><h2 id="rank">密度实验研究员</h2><p>总分 <b id="finalScore">0</b></p></div></div>
+      <div class="skills" id="skills"></div>
+    </div>
+    <div class="footer-nav"><button class="secondary" onclick="location.reload()">重新挑战</button><button class="primary" onclick="showScreen(0)">回到首页</button></div>
+  </div>
+</section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let current=0,score=0,lives=3;
+const done={float:new Set(),density:new Set(),egg:new Set(),rank:new Set(),boss:new Set()};
+const mistakes={float:0,density:0,egg:0,rank:0,boss:0};
+const scoreEl=document.getElementById('score'),livesEl=document.getElementById('lives'),stageText=document.getElementById('stageText'),progressBar=document.getElementById('progressBar');
+
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1300)}
+function setStats(){scoreEl.textContent=score;livesEl.textContent=lives;stageText.textContent='任务 '+Math.min(current+1,6)+' / 6';progressBar.style.width=(current/6*100)+'%'}
+function showScreen(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('s'+n).classList.add('active');current=n;setStats();window.scrollTo({top:0,behavior:'smooth'})}
+function nextScreen(){showScreen(current+1)}function prevScreen(){showScreen(Math.max(0,current-1))}
+function good(n=10){score+=n;toast('答对了！ +'+n+' ⭐');setStats()}
+function bad(k){mistakes[k]++;lives=Math.max(0,lives-1);toast('再比较物体和水的密度');setStats()}
+
+// Task 1: exact Set A answer mapping
+const floatData=[
+ {icon:'🍃',name:'叶子',zone:'float'},
+ {icon:'🥥',name:'椰子',zone:'float'},
+ {icon:'🏓',name:'乒乓球',zone:'float'},
+ {icon:'🪙',name:'硬币',zone:'sink'},
+ {icon:'🪶',name:'羽毛',zone:'float'},
+ {icon:'🔵',name:'玻璃弹子',zone:'sink'},
+ {icon:'🥚',name:'新鲜鸡蛋',zone:'sink'},
+ {icon:'✂️',name:'剪刀',zone:'sink'},
+ {icon:'🔘',name:'塑料瓶盖',zone:'float'},
+ {icon:'🪵',name:'木塞',zone:'float'},
+ {icon:'🟤',name:'榴莲',zone:'sink'},
+ {icon:'🪨',name:'石头',zone:'sink'}
+];
+floatItems.innerHTML=floatData.map((x,i)=>`<div class="card drag-item" draggable="true" data-i="${i}"><div class="pic">${x.icon}</div><div class="label">${x.name}</div></div>`).join('');
+let dragId=null;
+document.querySelectorAll('.drag-item').forEach(el=>{
+ el.addEventListener('dragstart',()=>{dragId=+el.dataset.i;el.classList.add('dragging')});
+ el.addEventListener('dragend',()=>el.classList.remove('dragging'));
+ el.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){dragId=+el.dataset.i;toast('手机：点物体后，再点“浮”或“沉”')}})
+});
+document.querySelectorAll('.drop').forEach(z=>{
+ z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('hover')});
+ z.addEventListener('dragleave',()=>z.classList.remove('hover'));
+ z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('hover');dropFloat(z)});
+ z.addEventListener('click',()=>{if(dragId!==null)dropFloat(z)});
+});
+function dropFloat(z){
+ if(dragId===null)return;
+ const q=floatData[dragId],el=document.querySelector(`#floatItems [data-i="${dragId}"]`);
+ if(q.zone===z.dataset.zone){
+   if(!done.float.has(dragId)){done.float.add(dragId);good(5)}
+   z.appendChild(el);el.draggable=false;el.classList.add('good')
+ }else bad('float');
+ dragId=null
+}
+function completeFloat(){if(done.float.size<floatData.length)return toast('先完成 12 个物体的浮沉分类');showScreen(2)}
+
+// Task 2
+const densityQsData=[
+ {icon:'🪵',q:'木塞浮在水中，说明木塞的密度与水相比怎样？',ans:'木塞的密度小于水',opts:['木塞的密度小于水','木塞的密度大于水','两者一定完全相同']},
+ {icon:'🪨',q:'石头沉在水底，说明石头的密度与水相比怎样？',ans:'石头的密度大于水',opts:['石头的密度大于水','石头的密度小于水','石头没有密度']},
+ {icon:'🪙🔘',q:'硬币沉、塑料瓶盖浮，最符合哪一个解释？',ans:'硬币密度大于水，瓶盖密度小于水',opts:['硬币密度大于水，瓶盖密度小于水','两者密度都小于水','两者密度都大于水']},
+ {icon:'📦📦',q:'体积相同的物体，密度一定相同吗？',ans:'不一定相同',opts:['不一定相同','一定相同','体积相同就没有密度']}
+];
+densityQs.innerHTML=densityQsData.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerDensity(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerDensity(i,v,b){if(done.density.has(i))return;if(v===densityQsData[i].ans){done.density.add(i);b.classList.add('good');good(10)}else{b.classList.add('bad');bad('density')}}
+function completeDensity(){if(done.density.size<densityQsData.length)return toast('先完成密度概念题');showScreen(3)}
+
+// Task 3
+const eggData=[
+ {icon:'🥚',q:'盐水实验中观察到什么？',ans:'鸡蛋浮在水面',opts:['鸡蛋浮在水面','鸡蛋消失','鸡蛋一定沉在水底']},
+ {icon:'🧂',q:'根据观察，可以作出什么推断？',ans:'溶解的盐使鸡蛋浮起来',opts:['溶解的盐使鸡蛋浮起来','盐让鸡蛋变轻','盐让杯子变大']},
+ {icon:'💧',q:'盐溶解在水里后，水的密度怎样变化？',ans:'增加',opts:['增加','减少','完全消失']},
+ {icon:'🍬',q:'除了盐，还可以用什么增加水的密度？',ans:'糖',opts:['糖','木塞','石头']},
+ {icon:'🧪',q:'这项实验的结论是什么？',ans:'盐可增加水的密度，使物体浮上水面',opts:['盐可增加水的密度，使物体浮上水面','盐会降低所有物体的密度','盐会使水全部蒸发']},
+ {icon:'🥤',q:'原答案列出的密度知识生活应用之一是什么？',ans:'三色奶茶',opts:['三色奶茶','手电筒','牙刷']}
+];
+eggQs.innerHTML=eggData.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerEgg(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerEgg(i,v,b){if(done.egg.has(i))return;if(v===eggData[i].ans){done.egg.add(i);b.classList.add('good');good(10)}else{b.classList.add('bad');bad('egg')}}
+function completeEgg(){if(done.egg.size<eggData.length)return toast('先完成盐水鸡蛋实验');showScreen(4)}
+
+// Task 4
+const rankData=[
+ {q:'从密度小到大，正确顺序是什么？',ans:'食油 → 水 → 洗碗液 → 橡皮泥',opts:['食油 → 水 → 洗碗液 → 橡皮泥','橡皮泥 → 洗碗液 → 水 → 食油','水 → 食油 → 橡皮泥 → 洗碗液']},
+ {q:'为什么食油会浮在水面上？',ans:'食油的密度小于水',opts:['食油的密度小于水','食油的密度大于水','食油没有密度']},
+ {q:'除了食油，哪两个材料的密度也比水小？',ans:'冰块和木塞',opts:['冰块和木塞','硬币和铁块','石头和硬币']},
+ {q:'哪两个物体会沉在水底？',ans:'硬币和铁块',opts:['硬币和铁块','冰块和木塞','食油和木塞']},
+ {q:'要让洗碗液浮在水面，可以怎样做？',ans:'在水里加盐或糖',opts:['在水里加盐或糖','把水倒掉','加入木塞']}
+];
+rankQs.innerHTML=rankData.map((x,i)=>`<div class="question"><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerRank(${i},'${v}',this)">${v}</button>`).join('')}</div></div>`).join('');
+function answerRank(i,v,b){if(done.rank.has(i))return;if(v===rankData[i].ans){done.rank.add(i);b.classList.add('good');good(11)}else{b.classList.add('bad');bad('rank')}}
+function completeRank(){if(done.rank.size<rankData.length)return toast('先完成密度排行榜');showScreen(5)}
+
+// Task 5
+const bossData=[
+ {icon:'🍅',q:'把番茄放入水里，原答案预测会怎样？',ans:'番茄会浮在水面上',opts:['番茄会浮在水面上','番茄一定沉底','番茄会溶解']},
+ {icon:'🍊',q:'把橙皮放入水中，会观察到什么？',ans:'橙皮在水中会浮',opts:['橙皮在水中会浮','橙皮一定沉底','橙皮会变成水']},
+ {icon:'🍊💧',q:'橙皮浮在水中，可以怎样推断？',ans:'橙皮的密度小于水',opts:['橙皮的密度小于水','橙皮的密度大于水','橙皮没有密度']},
+ {icon:'🪵🪨',q:'木塞浮而石头沉，正确原因是什么？',ans:'木塞密度小于水，石头密度大于水',opts:['木塞密度小于水，石头密度大于水','木塞和石头密度都小于水','木塞和石头密度都大于水']},
+ {icon:'🔘🪙',q:'把塑料瓶盖和硬币放入水中，预测结果是什么？',ans:'塑料瓶盖浮，硬币沉',opts:['塑料瓶盖浮，硬币沉','两者都浮','两者都沉']},
+ {icon:'📦',q:'Set H 的最好结论是什么？',ans:'体积相同的物体，密度不一定相同',opts:['体积相同的物体，密度不一定相同','体积相同，密度一定相同','只有液体有密度']}
+];
+bossQs.innerHTML=bossData.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerBoss(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerBoss(i,v,b){if(done.boss.has(i))return;if(v===bossData[i].ans){done.boss.add(i);b.classList.add('good');good(15)}else{b.classList.add('bad');bad('boss')}}
+
+function finishGame(){
+ if(done.boss.size<bossData.length)return toast('先完成全部 Boss 题');
+ showScreen(6);finalScore.textContent=score;
+ const totalMist=Object.values(mistakes).reduce((a,b)=>a+b,0);
+ rank.textContent=totalMist<=2?'五星密度实验研究员':totalMist<=7?'优秀密度实验研究员':'继续训练中的密度实验研究员';
+ const data=[
+   ['浮沉分类',Math.max(50,100-mistakes.float*6)],
+   ['密度概念',Math.max(50,100-mistakes.density*10)],
+   ['盐水鸡蛋实验',Math.max(50,100-mistakes.egg*8)],
+   ['密度大小比较',Math.max(50,100-mistakes.rank*10)],
+   ['KBAT 推断',Math.max(50,100-mistakes.boss*10)]
+ ];
+ skills.innerHTML=data.map(x=>`<div class="skill"><div class="skillline"><span>${x[0]}</span><span>${x[1]}%</span></div><div class="bar"><i style="width:${x[1]}%"></i></div></div>`).join('');
+}
+setStats();
+</script>
+</body>
+</html>

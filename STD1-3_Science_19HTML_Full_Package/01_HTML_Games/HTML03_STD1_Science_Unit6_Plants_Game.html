@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>标准一科学｜单元6 植物｜植物生命实验室</title>
+<style>
+:root{
+  --ink:#28442f;--muted:#718575;--leaf:#67c587;--leaf2:#a7e2b8;--sky:#8fd6ff;
+  --sun:#ffd86d;--flower:#ff9fc2;--good:#53c985;--bad:#ff747b;--card:#fff;
+  --shadow:0 18px 45px rgba(55,102,72,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#eff9f0;color:var(--ink)}
+button{font:inherit}
+body{
+  background:
+    radial-gradient(circle at 9% 7%,#fff5b7 0 8%,transparent 9%),
+    radial-gradient(circle at 91% 5%,#dff4ff 0 12%,transparent 13%),
+    linear-gradient(180deg,#edfaef,#f9fcff 72%);
+}
+.app{min-height:100vh;max-width:1180px;margin:auto;padding:18px}
+.top{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:rgba(255,255,255,.9);backdrop-filter:blur(10px);
+  border:1px solid #d9edde;border-radius:22px;padding:12px 16px;box-shadow:var(--shadow);
+  position:sticky;top:10px;z-index:30
+}
+.brand{display:flex;gap:10px;align-items:center;font-weight:900}
+.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#69c98a,#77c9ff);color:#fff;font-weight:1000}
+.stats{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.badge{background:#f4fbf5;border:1px solid #dcefe0;border-radius:999px;padding:8px 11px;font-weight:800;font-size:.88rem}
+.progress{height:8px;background:#deeee2;border-radius:99px;overflow:hidden;margin:12px 3px 0}
+.progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#64cc89,#80ccff);transition:.35s}
+.screen{display:none;animation:fade .25s ease}.screen.active{display:block}
+@keyframes fade{from{opacity:.2;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero{
+  margin-top:18px;min-height:620px;border-radius:34px;overflow:hidden;position:relative;
+  background:linear-gradient(135deg,#e8ffe8 0%,#ecf8ff 55%,#fff8dc 100%);
+  border:1px solid #dceee0;box-shadow:var(--shadow);padding:42px
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;min-height:520px}
+.kicker{display:inline-block;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid #dfeee2;font-weight:900;color:#5d7b65}
+h1{font-size:clamp(2.8rem,7vw,6rem);line-height:.94;margin:18px 0;letter-spacing:-.04em}
+h1 small{display:block;font-size:.28em;letter-spacing:.11em;color:#6f8676;margin-top:16px}
+.lead{font-size:1.1rem;line-height:1.75;color:#5f7765;max-width:620px}
+.primary,.secondary{border:0;border-radius:16px;padding:14px 20px;font-weight:1000;cursor:pointer;transition:.2s}
+.primary{background:linear-gradient(135deg,#5cc783,#7bc9ff);color:white;box-shadow:0 10px 24px rgba(89,161,107,.24)}
+.secondary{background:#fff;color:#41604a;border:1px solid #dceade}
+.primary:hover,.secondary:hover{transform:translateY(-2px)}
+.garden{position:relative;min-height:440px}
+.plant{position:absolute;left:50%;bottom:4%;transform:translateX(-50%);width:250px;height:390px}
+.stem{position:absolute;left:119px;bottom:62px;width:14px;height:240px;border-radius:20px;background:#5caf72}
+.leaf{position:absolute;width:88px;height:48px;background:#76cf8d;border-radius:100% 0 100% 0;transform-origin:bottom right;box-shadow:inset 0 0 0 2px #5daf75}
+.l1{left:42px;top:162px;transform:rotate(18deg)}.l2{right:35px;top:206px;transform:scaleX(-1) rotate(18deg)}.l3{left:42px;top:245px;transform:rotate(10deg)}
+.flower{position:absolute;left:76px;top:28px;font-size:7rem;filter:drop-shadow(0 12px 18px rgba(0,0,0,.12))}
+.root{position:absolute;left:83px;bottom:7px;width:85px;height:75px;border-bottom:8px solid #9d714f;border-radius:0 0 50% 50%}
+.root:before,.root:after{content:"";position:absolute;top:20px;width:60px;height:45px;border-bottom:6px solid #9d714f;border-radius:50%}
+.root:before{left:-35px;transform:rotate(35deg)}.root:after{right:-35px;transform:rotate(-35deg)}
+.bubble{position:absolute;background:#fff;border:1px solid #ddece0;border-radius:20px;padding:12px 14px;font-weight:900;box-shadow:0 12px 24px rgba(51,96,62,.11)}
+.b1{left:2%;top:10%}.b2{right:1%;top:18%}.b3{left:1%;bottom:16%}.b4{right:0;bottom:10%}
+.panel{margin-top:18px;background:#fff;border:1px solid #dcece0;border-radius:30px;box-shadow:var(--shadow);padding:26px}
+.headrow{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:20px}
+.headrow h2{margin:0;font-size:clamp(1.7rem,3vw,2.5rem)}.headrow p{margin:7px 0 0;color:var(--muted);line-height:1.6}
+.stage-tag{white-space:nowrap;background:#f1fbf3;border:1px solid #d9edde;border-radius:999px;padding:8px 12px;font-weight:900;color:#577763}
+.grid{display:grid;gap:14px}.grid4{grid-template-columns:repeat(4,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}.grid2{grid-template-columns:repeat(2,1fr)}
+.card{background:linear-gradient(180deg,#fff,#f9fcfa);border:2px solid #dfede2;border-radius:22px;padding:18px;min-height:132px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;cursor:pointer;transition:.2s;user-select:none}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(49,92,60,.12)}
+.card.selected{border-color:#7bc9ff;background:#eff9ff}.card.good{border-color:var(--good);background:#edfff4}.card.bad{border-color:var(--bad);background:#fff0f1}
+.pic{font-size:3.2rem}.label{font-weight:1000}.sub{font-size:.86rem;color:var(--muted)}
+.drop-area{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+.drop{min-height:180px;border:3px dashed #b8d7c0;border-radius:24px;padding:16px;background:#f7fcf8;display:flex;flex-direction:column;gap:10px;align-items:center}
+.drop h3{margin:0}.drop.hover{border-color:#7e76ff;background:#f2f1ff}
+.drag-item{touch-action:none;cursor:grab}.drag-item.dragging{opacity:.55}
+.question{background:linear-gradient(135deg,#f8fcf9,#fff);border:2px solid #dfede2;border-radius:24px;padding:22px;margin-bottom:14px}
+.question h3{margin:0 0 15px;line-height:1.5}.options{display:grid;gap:10px}
+.opt{border:2px solid #dfeae2;background:#fff;border-radius:16px;padding:13px 15px;text-align:left;font-weight:850;cursor:pointer}
+.opt.good{border-color:var(--good);background:#ecfff4}.opt.bad{border-color:var(--bad);background:#fff0f1}
+.scenario{display:grid;grid-template-columns:170px 1fr;gap:22px;align-items:center}.scene-art{min-height:160px;border-radius:24px;display:grid;place-items:center;font-size:5rem;background:linear-gradient(135deg,#e8ffe9,#eef8ff)}
+.footer-nav{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
+.result{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;align-items:center}.medal{min-height:320px;border-radius:30px;background:linear-gradient(135deg,#fff2ae,#ffd979);display:grid;place-items:center;text-align:center;padding:30px;box-shadow:inset 0 0 0 8px rgba(255,255,255,.55)}.medal strong{font-size:5rem;display:block}
+.skills{display:grid;gap:12px}.skill{background:#f8fcf9;border:1px solid #deebe1;border-radius:18px;padding:15px}.skillline{display:flex;justify-content:space-between;font-weight:900;margin-bottom:8px}.bar{height:10px;background:#e7efe9;border-radius:99px;overflow:hidden}.bar i{height:100%;display:block;background:linear-gradient(90deg,#59ce82,#78c9ff)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;background:#28442fee;color:#fff;padding:12px 18px;border-radius:14px;font-weight:900;transition:.2s;z-index:99}.toast.show{opacity:1;transform:translateX(-50%)}
+@media(max-width:820px){
+ .app{padding:10px}.hero{padding:24px;min-height:auto}.hero-grid{grid-template-columns:1fr;min-height:auto}.garden{min-height:400px}
+ .grid4,.grid3,.grid2{grid-template-columns:1fr 1fr}.drop-area{grid-template-columns:1fr 1fr}.result{grid-template-columns:1fr}.scenario{grid-template-columns:1fr}.scene-art{min-height:120px}.stats .badge:nth-child(1){display:none}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="brand"><div class="logo">S1</div><div>科学冒险｜单元 6 植物</div></div>
+  <div class="stats"><span class="badge" id="stageText">任务 1 / 6</span><span class="badge">⭐ <b id="score">0</b></span><span class="badge">❤️ <b id="lives">3</b></span></div>
+</header>
+<div class="progress"><i id="progressBar"></i></div>
+
+<section class="screen active" id="s0">
+  <div class="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="kicker">STANDARD 1 SCIENCE · 植物</span>
+        <h1>植物生命实验室<small>PLANT LIFE LAB</small></h1>
+        <p class="lead">认识植物的<b>叶、花、根和茎</b>，掌握它们的功能，再完成开花植物、不会开花的植物和植物生存挑战。</p>
+        <button class="primary" onclick="nextScreen()">进入植物实验室</button>
+      </div>
+      <div class="garden">
+        <div class="plant"><div class="stem"></div><div class="leaf l1"></div><div class="leaf l2"></div><div class="leaf l3"></div><div class="flower">🌺</div><div class="root"></div></div>
+        <div class="bubble b1">🍃 叶子</div><div class="bubble b2">🌺 花</div><div class="bubble b3">🌱 根</div><div class="bubble b4">🪴 茎</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="s1">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 1｜植物身体部位</h2><p>点击植物部位，再配对正确名称。</p></div><span class="stage-tag">基础辨认</span></div>
+    <div class="grid grid4" id="partItems"></div>
+    <div class="grid grid4" id="partChoices" style="margin-top:14px"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 返回</button><button class="primary" onclick="completeParts()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s2">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 2｜植物部位有什么功能？</h2><p>把功能拖到正确的植物部位。</p></div><span class="stage-tag">功能配对</span></div>
+    <div class="grid grid4" id="functionItems"></div>
+    <div class="drop-area">
+      <div class="drop" data-zone="叶子"><h3>🍃 叶子</h3></div>
+      <div class="drop" data-zone="花"><h3>🌺 花</h3></div>
+      <div class="drop" data-zone="根"><h3>🌱 根</h3></div>
+      <div class="drop" data-zone="茎"><h3>🪴 茎</h3></div>
+    </div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeFunctions()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s3">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 3｜开花还是不会开花？</h2><p>根据题目选出不会开花的植物。</p></div><span class="stage-tag">分类</span></div>
+    <div id="flowerQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeFlower()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s4">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 4｜植物急救站</h2><p>植物少了某个部分，会发生什么？</p></div><span class="stage-tag">应用</span></div>
+    <div id="survivalQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeSurvival()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s5">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 5｜植物 Boss</h2><p>完成玫瑰和制造食物的综合挑战。</p></div><span class="stage-tag">KBAT BOSS</span></div>
+    <div id="bossQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="finishGame()">查看成绩 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s6">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务完成｜植物观察报告</h2><p>系统根据你的作答情况显示掌握度。</p></div><span class="stage-tag">RESULT</span></div>
+    <div class="result">
+      <div class="medal"><div><strong>★</strong><h2 id="rank">植物小专家</h2><p>总分 <b id="finalScore">0</b></p></div></div>
+      <div class="skills" id="skills"></div>
+    </div>
+    <div class="footer-nav"><button class="secondary" onclick="location.reload()">重新挑战</button><button class="primary" onclick="showScreen(0)">回到首页</button></div>
+  </div>
+</section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let current=0,score=0,lives=3;
+const done={parts:new Set(),func:new Set(),flower:new Set(),survival:new Set(),boss:new Set()};
+const mistakes={parts:0,func:0,flower:0,survival:0,boss:0};
+const scoreEl=document.getElementById('score'),livesEl=document.getElementById('lives'),stageText=document.getElementById('stageText'),progressBar=document.getElementById('progressBar');
+
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1300)}
+function setStats(){scoreEl.textContent=score;livesEl.textContent=lives;stageText.textContent='任务 '+Math.min(current+1,6)+' / 6';progressBar.style.width=(current/6*100)+'%'}
+function showScreen(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('s'+n).classList.add('active');current=n;setStats();window.scrollTo({top:0,behavior:'smooth'})}
+function nextScreen(){showScreen(current+1)}function prevScreen(){showScreen(Math.max(0,current-1))}
+function good(n=10){score+=n;toast('答对了！ +'+n+' ⭐');setStats()}
+function bad(k){mistakes[k]++;lives=Math.max(0,lives-1);toast('再观察一次');setStats()}
+
+// Task 1
+const partsData=[
+ {icon:'🍃',display:'绿色叶片',ans:'叶子'},
+ {icon:'🌺',display:'花朵',ans:'花'},
+ {icon:'🌱',display:'地下部分',ans:'根'},
+ {icon:'🪴',display:'连接各部分',ans:'茎'}
+];
+const partNames=['叶子','花','根','茎'];
+let activePart=null;
+partItems.innerHTML=partsData.map((x,i)=>`<div class="card" data-i="${i}" onclick="pickPart(${i},this)"><div class="pic">${x.icon}</div><div class="label">${x.display}</div></div>`).join('');
+partChoices.innerHTML=partNames.map(x=>`<div class="card" onclick="answerPart('${x}',this)"><div class="label">${x}</div></div>`).join('');
+function pickPart(i,el){activePart=i;document.querySelectorAll('#partItems .card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected')}
+function answerPart(v,el){
+ if(activePart===null)return toast('先选择一个植物部位');
+ const q=partsData[activePart],item=document.querySelector(`#partItems [data-i="${activePart}"]`);
+ if(v===q.ans){if(!done.parts.has(activePart)){done.parts.add(activePart);good(8)}item.classList.remove('selected');item.classList.add('good');activePart=null}
+ else{el.classList.add('bad');setTimeout(()=>el.classList.remove('bad'),500);bad('parts')}
+}
+function completeParts(){if(done.parts.size<4)return toast('先完成 4 个植物部位');showScreen(2)}
+
+// Task 2
+const funcData=[
+ {text:'帮助制造食物及用背面的气孔来呼吸',zone:'叶子'},
+ {text:'繁殖后代',zone:'花'},
+ {text:'吸收水份和养料',zone:'根'},
+ {text:'输送水份、食物和养料',zone:'茎'}
+];
+functionItems.innerHTML=funcData.map((x,i)=>`<div class="card drag-item" draggable="true" data-i="${i}"><div class="label">${x.text}</div></div>`).join('');
+let dragId=null;
+document.querySelectorAll('.drag-item').forEach(el=>{
+ el.addEventListener('dragstart',()=>{dragId=+el.dataset.i;el.classList.add('dragging')});
+ el.addEventListener('dragend',()=>el.classList.remove('dragging'));
+ el.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){dragId=+el.dataset.i;toast('手机：点功能后，再点下面植物部位')}})
+});
+document.querySelectorAll('.drop').forEach(z=>{
+ z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('hover')});
+ z.addEventListener('dragleave',()=>z.classList.remove('hover'));
+ z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('hover');dropFunc(z)});
+ z.addEventListener('click',()=>{if(dragId!==null)dropFunc(z)});
+});
+function dropFunc(zone){
+ if(dragId===null)return;
+ const q=funcData[dragId],el=document.querySelector(`#functionItems [data-i="${dragId}"]`);
+ if(q.zone===zone.dataset.zone){if(!done.func.has(dragId)){done.func.add(dragId);good(10)}zone.appendChild(el);el.draggable=false;el.classList.add('good')}
+ else bad('func');
+ dragId=null;
+}
+function completeFunctions(){if(done.func.size<4)return toast('先完成 4 个功能配对');showScreen(3)}
+
+// Task 3
+const flowerData=[
+ {icon:'🌿',q:'以下哪一种植物不会开花？',ans:'羊齿植物',opts:['玫瑰','羊齿植物','向日葵']},
+ {icon:'🌺',q:'以下哪一种属于会开花的植物？',ans:'玫瑰',opts:['羊齿植物','玫瑰','苔藓']}
+];
+flowerQs.innerHTML=flowerData.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerFlower(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerFlower(i,v,b){if(done.flower.has(i))return;if(v===flowerData[i].ans){done.flower.add(i);b.classList.add('good');good(10)}else{b.classList.add('bad');bad('flower')}}
+function completeFlower(){if(done.flower.size<flowerData.length)return toast('先完成植物分类');showScreen(4)}
+
+// Task 4
+const survivalData=[
+ {icon:'🌹',q:'如果一棵玫瑰失去了叶子部分，它会怎样？',ans:'死亡',opts:['继续正常生长','死亡','变成动物']},
+ {icon:'🍃',q:'玫瑰的叶子的主要功能是什么？',ans:'制作食物',opts:['制作食物','吸收泥土','制造声音']},
+ {icon:'🌵',q:'玫瑰的茎长有刺，作用是什么？',ans:'避免动物靠近',opts:['避免动物靠近','帮助飞行','增加香味']}
+];
+survivalQs.innerHTML=survivalData.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerSurvival(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerSurvival(i,v,b){if(done.survival.has(i))return;if(v===survivalData[i].ans){done.survival.add(i);b.classList.add('good');good(12)}else{b.classList.add('bad');bad('survival')}}
+function completeSurvival(){if(done.survival.size<survivalData.length)return toast('先完成植物急救站');showScreen(5)}
+
+// Task 5
+const bossData=[
+ {icon:'☀️🌿',q:'植物要靠哪个部分来制造食物？',ans:'叶子',opts:['根','叶子','花']},
+ {icon:'🌱💧',q:'哪个部分负责吸收水份和养料？',ans:'根',opts:['花','茎','根']},
+ {icon:'🌺',q:'哪个部分主要负责繁殖后代？',ans:'花',opts:['花','根','茎']},
+ {icon:'🪴',q:'哪个部分负责输送水份、食物和养料？',ans:'茎',opts:['叶子','茎','花']}
+];
+bossQs.innerHTML=bossData.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerBoss(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerBoss(i,v,b){if(done.boss.has(i))return;if(v===bossData[i].ans){done.boss.add(i);b.classList.add('good');good(15)}else{b.classList.add('bad');bad('boss')}}
+function finishGame(){
+ if(done.boss.size<bossData.length)return toast('先完成 4 道 Boss 题');
+ showScreen(6);finalScore.textContent=score;
+ const totalMist=Object.values(mistakes).reduce((a,b)=>a+b,0);
+ rank.textContent=totalMist<=2?'五星植物观察员':totalMist<=6?'优秀植物观察员':'继续训练中的植物观察员';
+ const data=[
+  ['植物部位',Math.max(50,100-mistakes.parts*10)],
+  ['部位功能',Math.max(50,100-mistakes.func*10)],
+  ['开花 / 不开花',Math.max(50,100-mistakes.flower*10)],
+  ['植物生存应用',Math.max(50,100-mistakes.survival*10)],
+  ['综合挑战',Math.max(50,100-mistakes.boss*10)]
+ ];
+ skills.innerHTML=data.map(x=>`<div class="skill"><div class="skillline"><span>${x[0]}</span><span>${x[1]}%</span></div><div class="bar"><i style="width:${x[1]}%"></i></div></div>`).join('');
+}
+setStats();
+</script>
+</body>
+</html>

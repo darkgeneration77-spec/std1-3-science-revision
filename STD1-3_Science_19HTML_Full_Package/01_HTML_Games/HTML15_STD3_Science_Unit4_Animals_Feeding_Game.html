@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>标准三科学｜单元4 动物｜动物进食生态研究站</title>
+<style>
+:root{
+ --ink:#273d4e;--muted:#728495;--green:#65c98c;--orange:#ffb66f;--blue:#6ebcff;--violet:#8e7cff;
+ --good:#54c98b;--bad:#ff747c;--shadow:0 18px 45px rgba(46,78,91,.14)
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#eef9f3;color:var(--ink)}
+button{font:inherit}
+body{background:
+ radial-gradient(circle at 8% 5%,#fff2bf 0 8%,transparent 9%),
+ radial-gradient(circle at 92% 5%,#e7e4ff 0 11%,transparent 12%),
+ linear-gradient(180deg,#eaf9ef,#f9fcff 78%)}
+.app{min-height:100vh;max-width:1180px;margin:auto;padding:18px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border:1px solid #dcebe1;border-radius:22px;padding:12px 16px;box-shadow:var(--shadow);position:sticky;top:10px;z-index:30}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#64c98b,#6ebcff);color:#fff;font-weight:1000}
+.stats{display:flex;gap:8px;flex-wrap:wrap}.badge{background:#f4fbf6;border:1px solid #dceee1;border-radius:999px;padding:8px 11px;font-weight:800;font-size:.88rem}
+.progress{height:8px;background:#dfeee3;border-radius:99px;overflow:hidden;margin:12px 3px 0}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#65c98c,#6ebcff);transition:.35s}
+.screen{display:none;animation:fade .25s ease}.screen.active{display:block}@keyframes fade{from{opacity:.15;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hero{margin-top:18px;min-height:620px;border-radius:34px;padding:42px;background:linear-gradient(135deg,#e9ffef,#eef8ff 54%,#fff7df);border:1px solid #dcece1;box-shadow:var(--shadow)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;min-height:520px}
+.kicker{display:inline-block;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid #dfeee2;font-weight:900;color:#5f7967}
+h1{font-size:clamp(2.8rem,7vw,6rem);line-height:.94;margin:18px 0;letter-spacing:-.04em}h1 small{display:block;font-size:.28em;letter-spacing:.11em;color:#708477;margin-top:16px}
+.lead{font-size:1.1rem;line-height:1.75;color:#60786a;max-width:620px}
+.primary,.secondary{border:0;border-radius:16px;padding:14px 20px;font-weight:1000;cursor:pointer;transition:.2s}.primary{background:linear-gradient(135deg,#62c789,#6ebcff);color:#fff;box-shadow:0 10px 24px rgba(82,147,112,.22)}.secondary{background:#fff;color:#405c49;border:1px solid #daeade}.primary:hover,.secondary:hover{transform:translateY(-2px)}
+.ecoart{position:relative;min-height:440px}
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:185px;height:185px;border-radius:50%;background:#fff;border:1px solid #dcebe1;box-shadow:0 18px 40px rgba(50,90,62,.13);display:grid;place-items:center;font-size:6rem}
+.node{position:absolute;width:145px;min-height:125px;border-radius:26px;background:#fff;border:1px solid #dcebe1;box-shadow:0 14px 28px rgba(50,90,62,.11);display:grid;place-items:center;text-align:center;font-weight:900;padding:12px}.node b{font-size:3.1rem;display:block}
+.n1{left:4%;top:7%}.n2{right:4%;top:7%}.n3{left:3%;bottom:7%}.n4{right:3%;bottom:7%}
+.panel{margin-top:18px;background:#fff;border:1px solid #dcece1;border-radius:30px;box-shadow:var(--shadow);padding:26px}
+.headrow{display:flex;justify-content:space-between;gap:18px;margin-bottom:20px}.headrow h2{margin:0;font-size:clamp(1.7rem,3vw,2.5rem)}.headrow p{margin:7px 0 0;color:var(--muted);line-height:1.6}.stage-tag{white-space:nowrap;background:#f2fbf4;border:1px solid #d9ecdf;border-radius:999px;padding:8px 12px;font-weight:900;color:#587862}
+.grid{display:grid;gap:14px}.grid5{grid-template-columns:repeat(5,1fr)}.grid4{grid-template-columns:repeat(4,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}
+.card{background:linear-gradient(180deg,#fff,#fafdfb);border:2px solid #dfede2;border-radius:22px;padding:18px;min-height:132px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;cursor:pointer;transition:.2s;user-select:none}.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(47,87,57,.12)}.card.good{border-color:var(--good);background:#ecfff4}.card.bad{border-color:var(--bad);background:#fff0f1}.card.selected{border-color:#6ebcff;background:#eef8ff}
+.pic{font-size:3.2rem}.label{font-weight:1000}.sub{font-size:.86rem;color:var(--muted)}
+.drop-area{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.drop{min-height:210px;border:3px dashed #b9d8c2;border-radius:24px;padding:18px;background:#f8fcf9;display:flex;flex-direction:column;gap:10px;align-items:center}.drop h3{margin:0}.drop.hover{border-color:#8e7cff;background:#f3f0ff}.drag-item{touch-action:none;cursor:grab}.drag-item.dragging{opacity:.55}
+.question{background:linear-gradient(135deg,#f9fcfa,#fff);border:2px solid #dfede2;border-radius:24px;padding:22px;margin-bottom:14px}.question h3{margin:0 0 15px;line-height:1.5}.options{display:grid;gap:10px}.opt{border:2px solid #dfeae2;background:#fff;border-radius:16px;padding:13px 15px;text-align:left;font-weight:850;cursor:pointer}.opt.good{border-color:var(--good);background:#ecfff4}.opt.bad{border-color:var(--bad);background:#fff0f1}
+.scenario{display:grid;grid-template-columns:170px 1fr;gap:22px;align-items:center}.scene-art{min-height:160px;border-radius:24px;display:grid;place-items:center;font-size:4.8rem;background:linear-gradient(135deg,#eafff0,#eef8ff)}
+.footer-nav{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
+.result{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;align-items:center}.medal{min-height:320px;border-radius:30px;background:linear-gradient(135deg,#fff2ae,#ffd979);display:grid;place-items:center;text-align:center;padding:30px;box-shadow:inset 0 0 0 8px rgba(255,255,255,.55)}.medal strong{font-size:5rem;display:block}.skills{display:grid;gap:12px}.skill{background:#f8fcf9;border:1px solid #deebe1;border-radius:18px;padding:15px}.skillline{display:flex;justify-content:space-between;font-weight:900;margin-bottom:8px}.bar{height:10px;background:#e6efe8;border-radius:99px;overflow:hidden}.bar i{height:100%;display:block;background:linear-gradient(90deg,#65c98c,#6ebcff)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;background:#273d4eee;color:#fff;padding:12px 18px;border-radius:14px;font-weight:900;transition:.2s;z-index:99}.toast.show{opacity:1;transform:translateX(-50%)}
+@media(max-width:820px){.app{padding:10px}.hero{padding:24px;min-height:auto}.hero-grid{grid-template-columns:1fr;min-height:auto}.ecoart{min-height:390px}.grid5,.grid4,.grid3{grid-template-columns:1fr 1fr}.drop-area{grid-template-columns:1fr}.scenario{grid-template-columns:1fr}.result{grid-template-columns:1fr}.stats .badge:first-child{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="brand"><div class="logo">S3</div><div>科学冒险｜单元 4 动物</div></div>
+  <div class="stats"><span class="badge" id="stageText">任务 1 / 6</span><span class="badge">⭐ <b id="score">0</b></span><span class="badge">❤️ <b id="lives">3</b></span></div>
+</header>
+<div class="progress"><i id="progressBar"></i></div>
+
+<section class="screen active" id="s0">
+  <div class="hero"><div class="hero-grid">
+    <div>
+      <span class="kicker">STANDARD 3 SCIENCE · 动物</span>
+      <h1>动物进食生态研究站<small>ANIMAL FEEDING ECOLOGY STATION</small></h1>
+      <p class="lead">根据动物的<b>进食习性和牙齿结构</b>，分辨草食动物、肉食动物和杂食动物，再研究食物短缺时动物如何改变进食习性来继续生存。</p>
+      <button class="primary" onclick="nextScreen()">开始生态研究</button>
+    </div>
+    <div class="ecoart">
+      <div class="center">🦷</div>
+      <div class="node n1"><div><b>🐄</b>草食动物</div></div>
+      <div class="node n2"><div><b>🦁</b>肉食动物</div></div>
+      <div class="node n3"><div><b>🐒</b>杂食动物</div></div>
+      <div class="node n4"><div><b>🌿🥩</b>食物与生存</div></div>
+    </div>
+  </div></div>
+</section>
+
+<section class="screen" id="s1">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 1｜进食习性分类</h2><p>把 10 种动物放进正确的分类区。</p></div><span class="stage-tag">草食 / 肉食 / 杂食</span></div>
+    <div class="grid grid5" id="animalItems"></div>
+    <div class="drop-area">
+      <div class="drop" data-zone="herb"><h3>草食动物</h3><div class="sub">主要以植物为食</div></div>
+      <div class="drop" data-zone="carn"><h3>肉食动物</h3><div class="sub">以其他动物为食</div></div>
+      <div class="drop" data-zone="omni"><h3>杂食动物</h3><div class="sub">吃植物，也吃其他动物</div></div>
+    </div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 返回</button><button class="primary" onclick="completeAnimals()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s2">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 2｜牙齿结构与进食</h2><p>根据牙齿种类判断动物怎样进食。</p></div><span class="stage-tag">牙齿结构</span></div>
+    <div id="teethQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeTeeth()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s3">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 3｜动物食物档案</h2><p>完成课题中的食物与进食习性概念。</p></div><span class="stage-tag">食物关系</span></div>
+    <div id="foodQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeFood()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s4">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 4｜食物短缺生存实验</h2><p>动物面对食物短缺时，会发生什么？</p></div><span class="stage-tag">适应与生存</span></div>
+    <div id="adaptQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeAdapt()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s5">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 5｜动物生态 Boss</h2><p>综合牙齿、进食习性与生存关系。</p></div><span class="stage-tag">KBAT BOSS</span></div>
+    <div id="bossQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="finishGame()">查看成绩 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s6">
+  <div class="panel">
+    <div class="headrow"><div><h2>研究完成｜动物生态报告</h2><p>系统根据你的作答情况显示掌握度。</p></div><span class="stage-tag">RESULT</span></div>
+    <div class="result">
+      <div class="medal"><div><strong>★</strong><h2 id="rank">动物生态研究员</h2><p>总分 <b id="finalScore">0</b></p></div></div>
+      <div class="skills" id="skills"></div>
+    </div>
+    <div class="footer-nav"><button class="secondary" onclick="location.reload()">重新挑战</button><button class="primary" onclick="showScreen(0)">回到首页</button></div>
+  </div>
+</section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let current=0,score=0,lives=3;
+const done={animals:new Set(),teeth:new Set(),food:new Set(),adapt:new Set(),boss:new Set()};
+const mistakes={animals:0,teeth:0,food:0,adapt:0,boss:0};
+const scoreEl=document.getElementById('score'),livesEl=document.getElementById('lives'),stageText=document.getElementById('stageText'),progressBar=document.getElementById('progressBar');
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1300)}
+function setStats(){scoreEl.textContent=score;livesEl.textContent=lives;stageText.textContent='任务 '+Math.min(current+1,6)+' / 6';progressBar.style.width=(current/6*100)+'%'}
+function showScreen(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('s'+n).classList.add('active');current=n;setStats();window.scrollTo({top:0,behavior:'smooth'})}
+function nextScreen(){showScreen(current+1)}function prevScreen(){showScreen(Math.max(0,current-1))}
+function good(n=10){score+=n;toast('答对了！ +'+n+' ⭐');setStats()}function bad(k){mistakes[k]++;lives=Math.max(0,lives-1);toast('再观察动物的食物或牙齿');setStats()}
+
+// Task 1
+const animals=[
+ {icon:'🐿️',name:'松鼠',zone:'omni'},{icon:'🦋',name:'蝴蝶',zone:'herb'},{icon:'🐱',name:'猫',zone:'omni'},{icon:'🐻',name:'棕熊',zone:'omni'},
+ {icon:'🦈',name:'鲨鱼',zone:'carn'},{icon:'🦘',name:'袋鼠',zone:'herb'},{icon:'🐒',name:'猴子',zone:'omni'},{icon:'🐗',name:'马来貘',zone:'herb'},
+ {icon:'🦁',name:'狮子',zone:'carn'},{icon:'🐘',name:'大象',zone:'herb'}
+];
+animalItems.innerHTML=animals.map((x,i)=>`<div class="card drag-item" draggable="true" data-i="${i}"><div class="pic">${x.icon}</div><div class="label">${x.name}</div></div>`).join('');
+let dragId=null;
+document.querySelectorAll('.drag-item').forEach(el=>{
+ el.addEventListener('dragstart',()=>{dragId=+el.dataset.i;el.classList.add('dragging')});
+ el.addEventListener('dragend',()=>el.classList.remove('dragging'));
+ el.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){dragId=+el.dataset.i;toast('手机：点动物后，再点分类区')}})
+});
+document.querySelectorAll('.drop').forEach(z=>{
+ z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('hover')});
+ z.addEventListener('dragleave',()=>z.classList.remove('hover'));
+ z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('hover');dropAnimal(z)});
+ z.addEventListener('click',()=>{if(dragId!==null)dropAnimal(z)});
+});
+function dropAnimal(z){
+ if(dragId===null)return;const q=animals[dragId],el=document.querySelector(`#animalItems [data-i="${dragId}"]`);
+ if(q.zone===z.dataset.zone){if(!done.animals.has(dragId)){done.animals.add(dragId);good(6)}z.appendChild(el);el.draggable=false;el.classList.add('good')}else bad('animals');
+ dragId=null
+}
+function completeAnimals(){if(done.animals.size<animals.length)return toast('先完成 10 种动物分类');showScreen(2)}
+
+// Task 2
+const teeth=[
+ {icon:'🦷',q:'哪一种牙齿主要用来切断食物？',ans:'门齿',opts:['门齿','犬齿','臼齿']},
+ {icon:'🦷',q:'肉食动物用哪一种牙齿撕裂猎物的肉？',ans:'犬齿',opts:['犬齿','门齿','只有臼齿']},
+ {icon:'🦷',q:'哪一种牙齿主要用来磨碎食物？',ans:'臼齿',opts:['臼齿','犬齿','门齿']},
+ {icon:'🐯',q:'老虎属于肉食动物，它的牙齿结构包括什么？',ans:'门齿、臼齿和犬齿',opts:['只有门齿','门齿、臼齿和犬齿','只有臼齿']},
+ {icon:'🐄',q:'草食动物常见的牙齿结构主要有哪两种？',ans:'门齿和臼齿',opts:['门齿和臼齿','只有犬齿','犬齿和毒牙']}
+];
+teethQs.innerHTML=teeth.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerTeeth(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerTeeth(i,v,b){if(done.teeth.has(i))return;if(v===teeth[i].ans){done.teeth.add(i);b.classList.add('good');good(9)}else{b.classList.add('bad');bad('teeth')}}
+function completeTeeth(){if(done.teeth.size<teeth.length)return toast('先完成牙齿结构题');showScreen(3)}
+
+// Task 3
+const food=[
+ {icon:'🍽️',q:'动物和人类一样需要食物来做什么？',ans:'维持生命',opts:['维持生命','改变颜色','制造磁力']},
+ {icon:'🌿',q:'草食动物主要以什么为食？',ans:'植物',opts:['植物','其他动物','石头']},
+ {icon:'🐊',q:'以其他动物为食物的动物称为什么？',ans:'肉食动物',opts:['草食动物','肉食动物','杂食动物']},
+ {icon:'🐒',q:'既吃植物，也吃其他动物的动物称为什么？',ans:'杂食动物',opts:['杂食动物','草食动物','肉食动物']},
+ {icon:'🐨',q:'树袋熊主要以什么为食？',ans:'桉树叶',opts:['桉树叶','鱼','肉']},
+ {icon:'🐗',q:'马来貘属于哪一种进食习性？',ans:'草食',opts:['草食','肉食','杂食']}
+];
+foodQs.innerHTML=food.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerFood(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerFood(i,v,b){if(done.food.has(i))return;if(v===food[i].ans){done.food.add(i);b.classList.add('good');good(9)}else{b.classList.add('bad');bad('food')}}
+function completeFood(){if(done.food.size<food.length)return toast('先完成动物食物档案');showScreen(4)}
+
+// Task 4
+const adapt=[
+ {icon:'🌵',q:'面对食物短缺，动物为什么可能改变进食习性？',ans:'为了适应环境，继续生存',opts:['为了适应环境，继续生存','为了改变颜色','因为牙齿会消失']},
+ {icon:'🐄',q:'如果草食动物没有食物，长期下来可能怎样？',ans:'死亡',opts:['死亡','一定变成肉食动物','自动长出翅膀']},
+ {icon:'🦁🐄',q:'当草食动物大量减少，而肉食动物以草食动物为食，会发生什么？',ans:'肉食动物的食物来源也会受影响',opts:['肉食动物的食物来源也会受影响','完全没有影响','肉食动物开始制造植物']},
+ {icon:'🔄',q:'原练习指出动物改变原有进食习性的目的是什么？',ans:'为了能继续生存',opts:['为了能继续生存','为了长得更漂亮','为了让牙齿变少']}
+];
+adaptQs.innerHTML=adapt.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerAdapt(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerAdapt(i,v,b){if(done.adapt.has(i))return;if(v===adapt[i].ans){done.adapt.add(i);b.classList.add('good');good(12)}else{b.classList.add('bad');bad('adapt')}}
+function completeAdapt(){if(done.adapt.size<adapt.length)return toast('先完成生存实验');showScreen(5)}
+
+// Boss
+const boss=[
+ {icon:'🐯',q:'为什么老虎吃其他动物的肉？',ans:'因为老虎是肉食动物',opts:['因为老虎是肉食动物','因为老虎是草食动物','因为老虎没有牙齿']},
+ {icon:'🦷',q:'如果一只肉食动物没有犬齿，它还能像原来一样有效撕裂大块的肉吗？',ans:'不能',opts:['不能','一定可以','完全没有关系']},
+ {icon:'🦷',q:'为什么没有犬齿会影响肉食动物进食？',ans:'犬齿用来撕扯猎物的肉',opts:['犬齿用来撕扯猎物的肉','犬齿用来呼吸','犬齿用来听声音']},
+ {icon:'🐄🦓',q:'牛和斑马属于哪一类动物？',ans:'草食动物',opts:['草食动物','肉食动物','杂食动物']},
+ {icon:'🦈🐊🐯',q:'鲨鱼、鳄鱼和老虎共同属于哪一类？',ans:'肉食动物',opts:['肉食动物','草食动物','杂食动物']},
+ {icon:'🐱🐒',q:'猫和猴子在原答案分类中属于哪一类？',ans:'杂食动物',opts:['杂食动物','肉食动物','草食动物']}
+];
+bossQs.innerHTML=boss.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerBoss(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerBoss(i,v,b){if(done.boss.has(i))return;if(v===boss[i].ans){done.boss.add(i);b.classList.add('good');good(15)}else{b.classList.add('bad');bad('boss')}}
+function finishGame(){
+ if(done.boss.size<boss.length)return toast('先完成全部 Boss 题');
+ showScreen(6);finalScore.textContent=score;
+ const totalMist=Object.values(mistakes).reduce((a,b)=>a+b,0);
+ rank.textContent=totalMist<=2?'五星动物生态研究员':totalMist<=7?'优秀动物生态研究员':'继续训练中的动物生态研究员';
+ const data=[
+  ['进食习性分类',Math.max(50,100-mistakes.animals*7)],
+  ['牙齿结构',Math.max(50,100-mistakes.teeth*10)],
+  ['食物关系',Math.max(50,100-mistakes.food*9)],
+  ['适应与生存',Math.max(50,100-mistakes.adapt*10)],
+  ['KBAT 综合',Math.max(50,100-mistakes.boss*10)]
+ ];
+ skills.innerHTML=data.map(x=>`<div class="skill"><div class="skillline"><span>${x[0]}</span><span>${x[1]}%</span></div><div class="bar"><i style="width:${x[1]}%"></i></div></div>`).join('');
+}
+setStats();
+</script>
+</body>
+</html>

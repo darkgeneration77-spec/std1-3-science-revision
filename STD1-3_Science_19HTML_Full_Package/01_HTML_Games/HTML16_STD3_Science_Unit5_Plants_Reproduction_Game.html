@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>标准三科学｜单元5 植物｜植物繁殖实验园</title>
+<style>
+:root{
+ --ink:#2b4234;--muted:#738676;--green:#63ca89;--green2:#9ee0b3;--blue:#70c0ff;--violet:#8c7cff;
+ --gold:#ffd76d;--good:#54c98b;--bad:#ff747c;--shadow:0 18px 45px rgba(48,92,61,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#eef9f0;color:var(--ink)}
+button{font:inherit}
+body{
+ background:
+ radial-gradient(circle at 8% 5%,#fff3bf 0 8%,transparent 9%),
+ radial-gradient(circle at 92% 5%,#e7efff 0 11%,transparent 12%),
+ linear-gradient(180deg,#ebfaee,#fbfdff 78%);
+}
+.app{min-height:100vh;max-width:1180px;margin:auto;padding:18px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border:1px solid #dcecdf;border-radius:22px;padding:12px 16px;box-shadow:var(--shadow);position:sticky;top:10px;z-index:30}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#62c98a,#70bfff);color:#fff;font-weight:1000}
+.stats{display:flex;gap:8px;flex-wrap:wrap}.badge{background:#f3fbf5;border:1px solid #dceee1;border-radius:999px;padding:8px 11px;font-weight:800;font-size:.88rem}
+.progress{height:8px;background:#deeee2;border-radius:99px;overflow:hidden;margin:12px 3px 0}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#63ca89,#70c0ff);transition:.35s}
+.screen{display:none;animation:fade .25s ease}.screen.active{display:block}@keyframes fade{from{opacity:.15;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hero{margin-top:18px;min-height:620px;border-radius:34px;padding:42px;background:linear-gradient(135deg,#e8ffed,#eef8ff 54%,#fff8de);border:1px solid #dcece0;box-shadow:var(--shadow)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;min-height:520px}
+.kicker{display:inline-block;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid #dfeee2;font-weight:900;color:#5e7966}
+h1{font-size:clamp(2.8rem,7vw,6rem);line-height:.94;margin:18px 0;letter-spacing:-.04em}h1 small{display:block;font-size:.28em;letter-spacing:.11em;color:#708576;margin-top:16px}
+.lead{font-size:1.1rem;line-height:1.75;color:#607767;max-width:620px}
+.primary,.secondary{border:0;border-radius:16px;padding:14px 20px;font-weight:1000;cursor:pointer;transition:.2s}.primary{background:linear-gradient(135deg,#61c789,#70c0ff);color:#fff;box-shadow:0 10px 24px rgba(80,155,106,.22)}.secondary{background:#fff;color:#405d48;border:1px solid #daeade}.primary:hover,.secondary:hover{transform:translateY(-2px)}
+.garden{position:relative;min-height:440px}
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:190px;height:190px;border-radius:50%;background:#fff;border:1px solid #dcebe0;box-shadow:0 18px 40px rgba(50,90,62,.13);display:grid;place-items:center;font-size:6rem}
+.node{position:absolute;width:145px;min-height:125px;border-radius:26px;background:#fff;border:1px solid #dcebe0;box-shadow:0 14px 28px rgba(50,90,62,.11);display:grid;place-items:center;text-align:center;font-weight:900;padding:12px}.node b{font-size:3.1rem;display:block}
+.n1{left:4%;top:6%}.n2{right:4%;top:6%}.n3{left:2%;bottom:6%}.n4{right:2%;bottom:6%}
+.panel{margin-top:18px;background:#fff;border:1px solid #dcece0;border-radius:30px;box-shadow:var(--shadow);padding:26px}
+.headrow{display:flex;justify-content:space-between;gap:18px;margin-bottom:20px}.headrow h2{margin:0;font-size:clamp(1.7rem,3vw,2.5rem)}.headrow p{margin:7px 0 0;color:var(--muted);line-height:1.6}.stage-tag{white-space:nowrap;background:#f2fbf4;border:1px solid #d9ecdf;border-radius:999px;padding:8px 12px;font-weight:900;color:#587862}
+.grid{display:grid;gap:14px}.grid6{grid-template-columns:repeat(6,1fr)}.grid4{grid-template-columns:repeat(4,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}
+.card{background:linear-gradient(180deg,#fff,#fafdfb);border:2px solid #dfede2;border-radius:22px;padding:18px;min-height:132px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;cursor:pointer;transition:.2s;user-select:none}.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(47,87,57,.12)}.card.good{border-color:var(--good);background:#ecfff4}.card.bad{border-color:var(--bad);background:#fff0f1}
+.pic{font-size:3.2rem}.label{font-weight:1000}.sub{font-size:.86rem;color:var(--muted)}
+.drop-area{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.drop{min-height:205px;border:3px dashed #b9d8c2;border-radius:24px;padding:18px;background:#f8fcf9;display:flex;flex-direction:column;gap:10px;align-items:center}.drop h3{margin:0}.drop.hover{border-color:#8e7cff;background:#f3f0ff}.drag-item{touch-action:none;cursor:grab}.drag-item.dragging{opacity:.55}
+.question{background:linear-gradient(135deg,#f9fcfa,#fff);border:2px solid #dfede2;border-radius:24px;padding:22px;margin-bottom:14px}.question h3{margin:0 0 15px;line-height:1.5}.options{display:grid;gap:10px}.opt{border:2px solid #dfeae2;background:#fff;border-radius:16px;padding:13px 15px;text-align:left;font-weight:850;cursor:pointer}.opt.good{border-color:var(--good);background:#ecfff4}.opt.bad{border-color:var(--bad);background:#fff0f1}
+.scenario{display:grid;grid-template-columns:170px 1fr;gap:22px;align-items:center}.scene-art{min-height:160px;border-radius:24px;display:grid;place-items:center;font-size:4.8rem;background:linear-gradient(135deg,#eafff0,#eef8ff)}
+.footer-nav{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
+.result{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;align-items:center}.medal{min-height:320px;border-radius:30px;background:linear-gradient(135deg,#fff2ae,#ffd979);display:grid;place-items:center;text-align:center;padding:30px;box-shadow:inset 0 0 0 8px rgba(255,255,255,.55)}.medal strong{font-size:5rem;display:block}.skills{display:grid;gap:12px}.skill{background:#f8fcf9;border:1px solid #deebe1;border-radius:18px;padding:15px}.skillline{display:flex;justify-content:space-between;font-weight:900;margin-bottom:8px}.bar{height:10px;background:#e6efe8;border-radius:99px;overflow:hidden}.bar i{height:100%;display:block;background:linear-gradient(90deg,#63ca89,#70c0ff)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;background:#2b4234ee;color:#fff;padding:12px 18px;border-radius:14px;font-weight:900;transition:.2s;z-index:99}.toast.show{opacity:1;transform:translateX(-50%)}
+@media(max-width:820px){.app{padding:10px}.hero{padding:24px;min-height:auto}.hero-grid{grid-template-columns:1fr;min-height:auto}.garden{min-height:390px}.grid6,.grid4,.grid3{grid-template-columns:1fr 1fr}.drop-area{grid-template-columns:1fr}.scenario{grid-template-columns:1fr}.result{grid-template-columns:1fr}.stats .badge:first-child{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="brand"><div class="logo">S3</div><div>科学冒险｜单元 5 植物</div></div>
+  <div class="stats"><span class="badge" id="stageText">任务 1 / 6</span><span class="badge">⭐ <b id="score">0</b></span><span class="badge">❤️ <b id="lives">3</b></span></div>
+</header>
+<div class="progress"><i id="progressBar"></i></div>
+
+<section class="screen active" id="s0">
+  <div class="hero"><div class="hero-grid">
+    <div>
+      <span class="kicker">STANDARD 3 SCIENCE · 植物</span>
+      <h1>植物繁殖实验园<small>PLANT REPRODUCTION GARDEN</small></h1>
+      <p class="lead">研究植物的<b>孢子、种子、地下茎、叶子、吸芽和切茎</b>繁殖方式，再认识组织培养、高枝压条法和植物繁殖的重要性。</p>
+      <button class="primary" onclick="nextScreen()">开始繁殖研究</button>
+    </div>
+    <div class="garden">
+      <div class="center">🌱</div>
+      <div class="node n1"><div><b>🌰</b>种子</div></div>
+      <div class="node n2"><div><b>🌿</b>切茎</div></div>
+      <div class="node n3"><div><b>🪴</b>地下茎 / 吸芽</div></div>
+      <div class="node n4"><div><b>🔬</b>组织培养</div></div>
+    </div>
+  </div></div>
+</section>
+
+<section class="screen" id="s1">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 1｜植物繁殖方法分类</h2><p>把植物分到正确的繁殖方式。</p></div><span class="stage-tag">繁殖分类</span></div>
+    <div class="grid grid6" id="plantItems"></div>
+    <div class="drop-area" style="grid-template-columns:repeat(3,1fr)">
+      <div class="drop" data-zone="spore"><h3>孢子</h3></div>
+      <div class="drop" data-zone="seed"><h3>种子</h3></div>
+      <div class="drop" data-zone="rhizome"><h3>地下茎</h3></div>
+      <div class="drop" data-zone="leaf"><h3>叶子</h3></div>
+      <div class="drop" data-zone="sucker"><h3>吸芽</h3></div>
+      <div class="drop" data-zone="cutting"><h3>切茎</h3></div>
+    </div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 返回</button><button class="primary" onclick="completePlants()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s2">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 2｜繁殖方式与例子</h2><p>根据原练习中的植物例子选择正确答案。</p></div><span class="stage-tag">例子辨认</span></div>
+    <div id="exampleQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeExamples()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s3">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 3｜高级繁殖技术</h2><p>认识组织培养与高枝压条法。</p></div><span class="stage-tag">技术应用</span></div>
+    <div id="techQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeTech()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s4">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 4｜植物繁殖为什么重要？</h2><p>掌握植物对生物和人类的重要性。</p></div><span class="stage-tag">重要性</span></div>
+    <div id="importanceQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeImportance()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s5">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 5｜植物繁殖 Boss</h2><p>完成甘蔗切茎、羊角豆和植物消失的 KBAT 挑战。</p></div><span class="stage-tag">KBAT BOSS</span></div>
+    <div id="bossQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="finishGame()">查看成绩 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s6">
+  <div class="panel">
+    <div class="headrow"><div><h2>研究完成｜植物繁殖报告</h2><p>系统根据你的作答情况显示掌握度。</p></div><span class="stage-tag">RESULT</span></div>
+    <div class="result">
+      <div class="medal"><div><strong>★</strong><h2 id="rank">植物繁殖研究员</h2><p>总分 <b id="finalScore">0</b></p></div></div>
+      <div class="skills" id="skills"></div>
+    </div>
+    <div class="footer-nav"><button class="secondary" onclick="location.reload()">重新挑战</button><button class="primary" onclick="showScreen(0)">回到首页</button></div>
+  </div>
+</section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let current=0,score=0,lives=3;
+const done={plants:new Set(),examples:new Set(),tech:new Set(),importance:new Set(),boss:new Set()};
+const mistakes={plants:0,examples:0,tech:0,importance:0,boss:0};
+const scoreEl=document.getElementById('score'),livesEl=document.getElementById('lives'),stageText=document.getElementById('stageText'),progressBar=document.getElementById('progressBar');
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1300)}
+function setStats(){scoreEl.textContent=score;livesEl.textContent=lives;stageText.textContent='任务 '+Math.min(current+1,6)+' / 6';progressBar.style.width=(current/6*100)+'%'}
+function showScreen(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('s'+n).classList.add('active');current=n;setStats();window.scrollTo({top:0,behavior:'smooth'})}
+function nextScreen(){showScreen(current+1)}function prevScreen(){showScreen(Math.max(0,current-1))}
+function good(n=10){score+=n;toast('答对了！ +'+n+' ⭐');setStats()}function bad(k){mistakes[k]++;lives=Math.max(0,lives-1);toast('再看看植物的繁殖方法');setStats()}
+
+// Task 1
+const plants=[
+ {icon:'🌿',name:'鸟巢蕨',zone:'spore'},
+ {icon:'🌿',name:'羊齿植物',zone:'spore'},
+ {icon:'🍀',name:'苔藓',zone:'spore'},
+ {icon:'🍈',name:'红毛丹',zone:'seed'},
+ {icon:'🌸',name:'凤仙花',zone:'seed'},
+ {icon:'🌱',name:'羊角豆',zone:'seed'},
+ {icon:'🥔',name:'马铃薯',zone:'rhizome'},
+ {icon:'🫚',name:'姜',zone:'rhizome'},
+ {icon:'🧅',name:'洋葱',zone:'rhizome'},
+ {icon:'🌱',name:'鳄鱼舌',zone:'leaf'},
+ {icon:'🪴',name:'虎尾兰',zone:'leaf'},
+ {icon:'🌺',name:'秋海棠',zone:'leaf'},
+ {icon:'🎋',name:'竹树',zone:'sucker'},
+ {icon:'🍌',name:'香蕉',zone:'sucker'},
+ {icon:'🍍',name:'凤梨',zone:'sucker'},
+ {icon:'🎋',name:'甘蔗',zone:'cutting'},
+ {icon:'🌿',name:'木薯',zone:'cutting'},
+ {icon:'🌹',name:'玫瑰',zone:'cutting'}
+];
+plantItems.innerHTML=plants.map((x,i)=>`<div class="card drag-item" draggable="true" data-i="${i}"><div class="pic">${x.icon}</div><div class="label">${x.name}</div></div>`).join('');
+let dragId=null;
+document.querySelectorAll('.drag-item').forEach(el=>{
+ el.addEventListener('dragstart',()=>{dragId=+el.dataset.i;el.classList.add('dragging')});
+ el.addEventListener('dragend',()=>el.classList.remove('dragging'));
+ el.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){dragId=+el.dataset.i;toast('手机：点植物后，再点繁殖方式')}})
+});
+document.querySelectorAll('.drop').forEach(z=>{
+ z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('hover')});
+ z.addEventListener('dragleave',()=>z.classList.remove('hover'));
+ z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('hover');dropPlant(z)});
+ z.addEventListener('click',()=>{if(dragId!==null)dropPlant(z)});
+});
+function dropPlant(z){
+ if(dragId===null)return;const q=plants[dragId],el=document.querySelector(`#plantItems [data-i="${dragId}"]`);
+ if(q.zone===z.dataset.zone){if(!done.plants.has(dragId)){done.plants.add(dragId);good(4)}z.appendChild(el);el.draggable=false;el.classList.add('good')}else bad('plants');
+ dragId=null
+}
+function completePlants(){if(done.plants.size<plants.length)return toast('先完成 18 种植物分类');showScreen(2)}
+
+// Task 2
+const examples=[
+ {icon:'🥔',q:'马铃薯主要属于哪一种繁殖方式例子？',ans:'地下茎',opts:['地下茎','孢子','叶子']},
+ {icon:'🌱',q:'羊角豆主要用什么繁殖？',ans:'种子',opts:['种子','切茎','吸芽']},
+ {icon:'🎋',q:'甘蔗可以用什么方式繁殖？',ans:'切茎',opts:['切茎','孢子','叶子']},
+ {icon:'🍌',q:'香蕉可以用什么方式繁殖？',ans:'吸芽',opts:['吸芽','孢子','种子']},
+ {icon:'🪴',q:'虎尾兰可以利用什么繁殖？',ans:'叶子',opts:['叶子','切茎','种子']},
+ {icon:'🧅',q:'洋葱属于哪一种地下部分繁殖例子？',ans:'地下茎',opts:['地下茎','吸芽','孢子']}
+];
+exampleQs.innerHTML=examples.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerExample(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerExample(i,v,b){if(done.examples.has(i))return;if(v===examples[i].ans){done.examples.add(i);b.classList.add('good');good(9)}else{b.classList.add('bad');bad('examples')}}
+function completeExamples(){if(done.examples.size<examples.length)return toast('先完成繁殖例子题');showScreen(3)}
+
+// Task 3
+const tech=[
+ {icon:'🔬',q:'什么是组织培养？',ans:'用植物某部分的组织进行培养，获得新的幼苗',opts:['用植物某部分的组织进行培养，获得新的幼苗','把植物晒干','把植物放进水里']},
+ {icon:'🌳',q:'高枝压条法怎样进行？',ans:'剥掉一圈树皮并包上一层土，长出根后再与母树分离',opts:['剥掉一圈树皮并包上一层土，长出根后再与母树分离','直接拔掉整棵树','把树叶剪碎']},
+ {icon:'🔬🌱',q:'组织培养的好处之一是什么？',ans:'可在短时间内繁殖大量和有品质的植物',opts:['可在短时间内繁殖大量和有品质的植物','只能繁殖一棵植物','使植物不能生长']},
+ {icon:'🌱',q:'组织培养还可以帮助什么植物？',ans:'帮助提升存活率较低的植物，并进行繁殖',opts:['帮助提升存活率较低的植物，并进行繁殖','让所有植物停止繁殖','只改变叶子颜色']}
+];
+techQs.innerHTML=tech.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerTech(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerTech(i,v,b){if(done.tech.has(i))return;if(v===tech[i].ans){done.tech.add(i);b.classList.add('good');good(11)}else{b.classList.add('bad');bad('tech')}}
+function completeTech(){if(done.tech.size<tech.length)return toast('先完成高级繁殖技术');showScreen(4)}
+
+// Task 4
+const importance=[
+ {icon:'🌱',q:'植物繁殖可以帮助什么？',ans:'保留品种，使植物不会绝种',opts:['保留品种，使植物不会绝种','让植物全部消失','让植物停止生长']},
+ {icon:'🌿',q:'植物对生物有什么重要作用？',ans:'提供氧气和食物来源',opts:['提供氧气和食物来源','制造塑料','让动物不能生存']},
+ {icon:'🏠',q:'植物对人类还有什么重要性？',ans:'提供生活所需的物品',opts:['提供生活所需的物品','只提供声音','只提供影子']},
+ {icon:'🐦🌳',q:'植物还能为动物提供什么？',ans:'食物和庇护所',opts:['食物和庇护所','磁力','电流']}
+];
+importanceQs.innerHTML=importance.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerImportance(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerImportance(i,v,b){if(done.importance.has(i))return;if(v===importance[i].ans){done.importance.add(i);b.classList.add('good');good(12)}else{b.classList.add('bad');bad('importance')}}
+function completeImportance(){if(done.importance.size<importance.length)return toast('先完成植物重要性题');showScreen(5)}
+
+// Boss
+const boss=[
+ {icon:'🎋',q:'弟弟把甘蔗的一截茎切下，插进泥土并每天浇水。之后会发生什么？',ans:'茎会长出幼苗',opts:['茎会长出幼苗','甘蔗一定死亡','茎会变成种子']},
+ {icon:'🌿',q:'哪两种植物也可以像甘蔗一样利用切茎繁殖？',ans:'木薯和木槿',opts:['木薯和木槿','羊角豆和向日葵','鸟巢蕨和苔藓']},
+ {icon:'🌱',q:'如果把羊角豆的茎剪下再种，它会怎样？',ans:'羊角豆会死亡',opts:['羊角豆会死亡','一定成功繁殖','变成地下茎']},
+ {icon:'🌱',q:'为什么羊角豆不能用切茎来繁殖？',ans:'羊角豆用种子来繁殖',opts:['羊角豆用种子来繁殖','羊角豆用孢子繁殖','羊角豆没有繁殖方式']},
+ {icon:'🌍',q:'如果世界上所有植物都消失，动物会怎样？',ans:'所有的动物无法生存',opts:['所有的动物无法生存','完全没有影响','动物会制造氧气']},
+ {icon:'🌻',q:'向日葵属于哪一种繁殖方式的例子？',ans:'种子',opts:['种子','切茎','地下茎']}
+];
+bossQs.innerHTML=boss.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerBoss(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerBoss(i,v,b){if(done.boss.has(i))return;if(v===boss[i].ans){done.boss.add(i);b.classList.add('good');good(15)}else{b.classList.add('bad');bad('boss')}}
+function finishGame(){
+ if(done.boss.size<boss.length)return toast('先完成全部 Boss 题');
+ showScreen(6);finalScore.textContent=score;
+ const totalMist=Object.values(mistakes).reduce((a,b)=>a+b,0);
+ rank.textContent=totalMist<=2?'五星植物繁殖研究员':totalMist<=7?'优秀植物繁殖研究员':'继续训练中的植物繁殖研究员';
+ const data=[
+  ['繁殖方法分类',Math.max(50,100-mistakes.plants*5)],
+  ['植物例子',Math.max(50,100-mistakes.examples*9)],
+  ['高级繁殖技术',Math.max(50,100-mistakes.tech*10)],
+  ['植物的重要性',Math.max(50,100-mistakes.importance*10)],
+  ['KBAT 综合',Math.max(50,100-mistakes.boss*10)]
+ ];
+ skills.innerHTML=data.map(x=>`<div class="skill"><div class="skillline"><span>${x[0]}</span><span>${x[1]}%</span></div><div class="bar"><i style="width:${x[1]}%"></i></div></div>`).join('');
+}
+setStats();
+</script>
+</body>
+</html>

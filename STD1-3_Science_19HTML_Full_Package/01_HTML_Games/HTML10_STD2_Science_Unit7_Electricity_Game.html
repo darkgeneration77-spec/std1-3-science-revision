@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>标准二科学｜单元7 电｜电路控制中心</title>
+<style>
+:root{
+  --ink:#21344d;--muted:#71839a;--blue:#66b9ff;--violet:#8b7cff;--yellow:#ffd76b;
+  --cyan:#62d4e8;--good:#52c98b;--bad:#ff747c;--shadow:0 18px 45px rgba(43,73,110,.15);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#eef6ff;color:var(--ink)}
+button{font:inherit}
+body{
+  background:
+    radial-gradient(circle at 9% 5%,#fff3b9 0 8%,transparent 9%),
+    radial-gradient(circle at 92% 5%,#e6e0ff 0 11%,transparent 12%),
+    linear-gradient(180deg,#eaf5ff,#f9fbff 78%);
+}
+.app{min-height:100vh;max-width:1180px;margin:auto;padding:18px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border:1px solid #dbe8f4;border-radius:22px;padding:12px 16px;box-shadow:var(--shadow);position:sticky;top:10px;z-index:30}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#64b8ff,#8b7cff);color:#fff;font-weight:1000}
+.stats{display:flex;gap:8px;flex-wrap:wrap}.badge{background:#f3f8fd;border:1px solid #dce8f4;border-radius:999px;padding:8px 11px;font-weight:800;font-size:.88rem}
+.progress{height:8px;background:#dfeaf4;border-radius:99px;overflow:hidden;margin:12px 3px 0}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#63d6e6,#75bfff);transition:.35s}
+.screen{display:none;animation:fade .25s ease}.screen.active{display:block}@keyframes fade{from{opacity:.15;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hero{margin-top:18px;min-height:620px;border-radius:34px;padding:42px;background:linear-gradient(135deg,#e7f6ff,#f3efff 55%,#fff8dc);border:1px solid #dce8f4;box-shadow:var(--shadow)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;min-height:520px}
+.kicker{display:inline-block;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid #dfe8f2;font-weight:900;color:#5d7290}
+h1{font-size:clamp(2.8rem,7vw,6rem);line-height:.94;margin:18px 0;letter-spacing:-.04em}h1 small{display:block;font-size:.28em;letter-spacing:.11em;color:#6d8099;margin-top:16px}
+.lead{font-size:1.1rem;line-height:1.75;color:#60748b;max-width:620px}
+.primary,.secondary{border:0;border-radius:16px;padding:14px 20px;font-weight:1000;cursor:pointer;transition:.2s}.primary{background:linear-gradient(135deg,#62b9ff,#8b79ff);color:#fff;box-shadow:0 10px 24px rgba(88,104,214,.23)}.secondary{background:#fff;color:#40546c;border:1px solid #d9e6f2}.primary:hover,.secondary:hover{transform:translateY(-2px)}
+.circuit-art{position:relative;min-height:440px}
+.loop{position:absolute;left:8%;right:8%;top:20%;bottom:18%;border:10px solid #6c89a9;border-radius:38px}
+.battery{position:absolute;left:4%;top:43%;width:120px;height:58px;border-radius:12px;background:linear-gradient(90deg,#ff7b75 0 50%,#657eff 50%);display:grid;place-items:center;color:#fff;font-weight:1000;box-shadow:0 10px 20px rgba(51,73,111,.18)}
+.bulb{position:absolute;right:5%;top:33%;font-size:7rem;filter:drop-shadow(0 0 18px #ffd86c)}
+.switch{position:absolute;left:43%;bottom:9%;width:130px;height:62px;border-radius:16px;background:#fff;border:3px solid #dce8f4;display:grid;place-items:center;font-weight:1000;box-shadow:0 12px 26px rgba(49,75,109,.12)}
+.bubble{position:absolute;background:#fff;border:1px solid #dce8f4;border-radius:18px;padding:12px 14px;font-weight:900;box-shadow:0 12px 24px rgba(50,78,112,.11)}
+.b1{left:2%;top:7%}.b2{right:1%;top:10%}.b3{left:3%;bottom:4%}.b4{right:2%;bottom:7%}
+.panel{margin-top:18px;background:#fff;border:1px solid #dce9f4;border-radius:30px;box-shadow:var(--shadow);padding:26px}
+.headrow{display:flex;justify-content:space-between;gap:18px;margin-bottom:20px}.headrow h2{margin:0;font-size:clamp(1.7rem,3vw,2.5rem)}.headrow p{margin:7px 0 0;color:var(--muted);line-height:1.6}.stage-tag{white-space:nowrap;background:#f2f7fd;border:1px solid #d9e7f3;border-radius:999px;padding:8px 12px;font-weight:900;color:#58718d}
+.grid{display:grid;gap:14px}.grid4{grid-template-columns:repeat(4,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}.grid2{grid-template-columns:repeat(2,1fr)}
+.card{background:linear-gradient(180deg,#fff,#fafcff);border:2px solid #dfebf5;border-radius:22px;padding:18px;min-height:132px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;cursor:pointer;transition:.2s;user-select:none}.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(47,73,108,.12)}.card.good{border-color:var(--good);background:#ecfff5}.card.bad{border-color:var(--bad);background:#fff0f1}.card.selected{border-color:#6ebcff;background:#eef8ff}
+.pic{font-size:3.2rem}.label{font-weight:1000}.sub{font-size:.86rem;color:var(--muted)}
+.drop-area{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.drop{min-height:215px;border:3px dashed #bed3e7;border-radius:24px;padding:18px;background:#f7fbff;display:flex;flex-direction:column;gap:10px;align-items:center}.drop h3{margin:0}.drop.hover{border-color:#877bff;background:#f3f0ff}.drag-item{touch-action:none;cursor:grab}.drag-item.dragging{opacity:.55}
+.question{background:linear-gradient(135deg,#f8fbff,#fff);border:2px solid #dfebf5;border-radius:24px;padding:22px;margin-bottom:14px}.question h3{margin:0 0 15px;line-height:1.5}.options{display:grid;gap:10px}.opt{border:2px solid #dfe9f3;background:#fff;border-radius:16px;padding:13px 15px;text-align:left;font-weight:850;cursor:pointer}.opt.good{border-color:var(--good);background:#ecfff4}.opt.bad{border-color:var(--bad);background:#fff0f1}
+.scenario{display:grid;grid-template-columns:170px 1fr;gap:22px;align-items:center}.scene-art{min-height:160px;border-radius:24px;display:grid;place-items:center;font-size:4.8rem;background:linear-gradient(135deg,#e8f6ff,#f3efff)}
+.circuitbox{border:2px solid #dce8f3;border-radius:24px;padding:18px;background:#f8fbff;margin-bottom:14px}.wireline{height:110px;border:8px solid #7089a4;border-radius:24px;position:relative;margin-bottom:14px}.wireline.open:after{content:"";position:absolute;left:47%;top:-12px;width:50px;height:20px;background:#f8fbff}.wireline .mini-bulb{position:absolute;right:-20px;top:18px;font-size:3.5rem}.wireline .mini-cell{position:absolute;left:-20px;top:25px;font-size:3rem}
+.footer-nav{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
+.result{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;align-items:center}.medal{min-height:320px;border-radius:30px;background:linear-gradient(135deg,#fff2ae,#ffd979);display:grid;place-items:center;text-align:center;padding:30px;box-shadow:inset 0 0 0 8px rgba(255,255,255,.55)}.medal strong{font-size:5rem;display:block}.skills{display:grid;gap:12px}.skill{background:#f8fbff;border:1px solid #deebf5;border-radius:18px;padding:15px}.skillline{display:flex;justify-content:space-between;font-weight:900;margin-bottom:8px}.bar{height:10px;background:#e5eef6;border-radius:99px;overflow:hidden}.bar i{height:100%;display:block;background:linear-gradient(90deg,#63d6e6,#75bfff)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;background:#21344dee;color:#fff;padding:12px 18px;border-radius:14px;font-weight:900;transition:.2s;z-index:99}.toast.show{opacity:1;transform:translateX(-50%)}
+@media(max-width:820px){.app{padding:10px}.hero{padding:24px;min-height:auto}.hero-grid{grid-template-columns:1fr;min-height:auto}.circuit-art{min-height:390px}.grid4,.grid3,.grid2{grid-template-columns:1fr 1fr}.drop-area{grid-template-columns:1fr}.scenario{grid-template-columns:1fr}.result{grid-template-columns:1fr}.stats .badge:first-child{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="brand"><div class="logo">S2</div><div>科学冒险｜单元 7 电</div></div>
+  <div class="stats"><span class="badge" id="stageText">任务 1 / 6</span><span class="badge">⭐ <b id="score">0</b></span><span class="badge">❤️ <b id="lives">3</b></span></div>
+</header>
+<div class="progress"><i id="progressBar"></i></div>
+
+<section class="screen active" id="s0">
+  <div class="hero"><div class="hero-grid">
+    <div>
+      <span class="kicker">STANDARD 2 SCIENCE · 电</span>
+      <h1>电路控制中心<small>POWER CIRCUIT CONTROL CENTRE</small></h1>
+      <p class="lead">认识<b>灯泡、干电池、电线和开关</b>，判断完整电路、灯泡是否会发亮，再研究电导体、电的绝缘体和电路故障。</p>
+      <button class="primary" onclick="nextScreen()">启动电路</button>
+    </div>
+    <div class="circuit-art">
+      <div class="loop"></div><div class="battery">＋ 干电池 －</div><div class="bulb">💡</div><div class="switch">开关 ON</div>
+      <div class="bubble b1">💡 灯泡</div><div class="bubble b2">🔋 干电池</div><div class="bubble b3">〰 电线</div><div class="bubble b4">⏻ 开关</div>
+    </div>
+  </div></div>
+</section>
+
+<section class="screen" id="s1">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 1｜电路元件与功能</h2><p>点击元件，再选择它的正确功能。</p></div><span class="stage-tag">电路元件</span></div>
+    <div class="grid grid4" id="componentItems"></div>
+    <div id="componentFunction" class="grid grid4" style="margin-top:14px"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 返回</button><button class="primary" onclick="completeComponents()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s2">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 2｜完整电路侦探</h2><p>判断电路完整时灯泡是否会发亮。</p></div><span class="stage-tag">完整电路</span></div>
+    <div id="circuitQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeCircuits()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s3">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 3｜电导体 / 电的绝缘体</h2><p>把物体拖到正确分类箱。</p></div><span class="stage-tag">材料分类</span></div>
+    <div class="grid grid4" id="materialItems"></div>
+    <div class="drop-area">
+      <div class="drop" data-zone="conductor"><h3>电导体</h3><div class="sub">能使电流通过的物体</div></div>
+      <div class="drop" data-zone="insulator"><h3>电的绝缘体</h3><div class="sub">不能使电流通过的物体</div></div>
+    </div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeMaterials()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s4">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 4｜故障排查</h2><p>找出灯泡不会发亮的原因。</p></div><span class="stage-tag">电路故障</span></div>
+    <div id="faultQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeFaults()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s5">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 5｜电路 Boss</h2><p>完成电池数量、蜂鸣器和绝缘体 KBAT 挑战。</p></div><span class="stage-tag">KBAT BOSS</span></div>
+    <div id="bossQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="finishGame()">查看成绩 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s6">
+  <div class="panel">
+    <div class="headrow"><div><h2>研究完成｜电路实验报告</h2><p>系统根据你的作答情况显示掌握度。</p></div><span class="stage-tag">RESULT</span></div>
+    <div class="result">
+      <div class="medal"><div><strong>★</strong><h2 id="rank">电路研究员</h2><p>总分 <b id="finalScore">0</b></p></div></div>
+      <div class="skills" id="skills"></div>
+    </div>
+    <div class="footer-nav"><button class="secondary" onclick="location.reload()">重新挑战</button><button class="primary" onclick="showScreen(0)">回到首页</button></div>
+  </div>
+</section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let current=0,score=0,lives=3;
+const done={components:new Set(),circuits:new Set(),materials:new Set(),faults:new Set(),boss:new Set()};
+const mistakes={components:0,circuits:0,materials:0,faults:0,boss:0};
+const scoreEl=document.getElementById('score'),livesEl=document.getElementById('lives'),stageText=document.getElementById('stageText'),progressBar=document.getElementById('progressBar');
+
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1300)}
+function setStats(){scoreEl.textContent=score;livesEl.textContent=lives;stageText.textContent='任务 '+Math.min(current+1,6)+' / 6';progressBar.style.width=(current/6*100)+'%'}
+function showScreen(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('s'+n).classList.add('active');current=n;setStats();window.scrollTo({top:0,behavior:'smooth'})}
+function nextScreen(){showScreen(current+1)}function prevScreen(){showScreen(Math.max(0,current-1))}
+function good(n=10){score+=n;toast('答对了！ +'+n+' ⭐');setStats()}function bad(k){mistakes[k]++;lives=Math.max(0,lives-1);toast('再检查电路');setStats()}
+
+// Task 1
+const components=[
+ {icon:'💡',name:'灯泡',ans:'发出光亮'},
+ {icon:'🔋',name:'干电池',ans:'提供电流'},
+ {icon:'⏻',name:'开关',ans:'接通或截断电路'},
+ {icon:'〰',name:'电线',ans:'连接电路中每个元件'}
+];
+const functions=['发出光亮','提供电流','接通或截断电路','连接电路中每个元件'];
+let activeComp=null;
+componentItems.innerHTML=components.map((x,i)=>`<div class="card" data-i="${i}" onclick="pickComp(${i},this)"><div class="pic">${x.icon}</div><div class="label">${x.name}</div></div>`).join('');
+componentFunction.innerHTML=functions.map(v=>`<div class="card" onclick="answerComp('${v}',this)"><div class="label">${v}</div></div>`).join('');
+function pickComp(i,el){activeComp=i;document.querySelectorAll('#componentItems .card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected')}
+function answerComp(v,el){
+ if(activeComp===null)return toast('先选择一个电路元件');
+ const q=components[activeComp],item=document.querySelector(`#componentItems [data-i="${activeComp}"]`);
+ if(v===q.ans){if(!done.components.has(activeComp)){done.components.add(activeComp);good(8)}item.classList.remove('selected');item.classList.add('good');activeComp=null}
+ else{el.classList.add('bad');setTimeout(()=>el.classList.remove('bad'),500);bad('components')}
+}
+function completeComponents(){if(done.components.size<4)return toast('先完成 4 个元件与功能');showScreen(2)}
+
+// Task 2
+const circuits=[
+ {open:false,q:'这个电路完整，灯泡会怎样？',ans:'会发亮'},
+ {open:true,q:'电线没有完整连接，灯泡会怎样？',ans:'不会发亮'},
+ {open:false,q:'电池、电线、开关和灯泡连接成完整电路，灯泡会怎样？',ans:'会发亮'},
+ {open:true,q:'这是不完整电路，灯泡会怎样？',ans:'不会发亮'}
+];
+circuitQs.innerHTML=circuits.map((x,i)=>`<div class="circuitbox"><div class="wireline ${x.open?'open':''}"><span class="mini-cell">🔋</span><span class="mini-bulb">💡</span></div><div class="question" style="margin:0"><h3>${x.q}</h3><div class="options"><button class="opt" onclick="answerCircuit(${i},'会发亮',this)">会发亮</button><button class="opt" onclick="answerCircuit(${i},'不会发亮',this)">不会发亮</button></div></div></div>`).join('');
+function answerCircuit(i,v,b){if(done.circuits.has(i))return;if(v===circuits[i].ans){done.circuits.add(i);b.classList.add('good');good(10)}else{b.classList.add('bad');bad('circuits')}}
+function completeCircuits(){if(done.circuits.size<circuits.length)return toast('先完成全部完整电路判断');showScreen(3)}
+
+// Task 3
+const materials=[
+ {icon:'🪡',name:'针',zone:'conductor'},{icon:'📏',name:'钢尺',zone:'conductor'},{icon:'💍',name:'金戒指',zone:'conductor'},{icon:'🔑',name:'铁钥匙',zone:'conductor'},
+ {icon:'🥛',name:'玻璃杯',zone:'insulator'},{icon:'🛍️',name:'塑料袋',zone:'insulator'},{icon:'📚',name:'书本',zone:'insulator'},{icon:'🧽',name:'橡皮',zone:'insulator'}
+];
+materialItems.innerHTML=materials.map((x,i)=>`<div class="card drag-item" draggable="true" data-i="${i}"><div class="pic">${x.icon}</div><div class="label">${x.name}</div></div>`).join('');
+let dragId=null;
+document.querySelectorAll('.drag-item').forEach(el=>{
+ el.addEventListener('dragstart',()=>{dragId=+el.dataset.i;el.classList.add('dragging')});
+ el.addEventListener('dragend',()=>el.classList.remove('dragging'));
+ el.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){dragId=+el.dataset.i;toast('手机：点物体后，再点下面分类箱')}})
+});
+document.querySelectorAll('.drop').forEach(z=>{
+ z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('hover')});
+ z.addEventListener('dragleave',()=>z.classList.remove('hover'));
+ z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('hover');dropMaterial(z)});
+ z.addEventListener('click',()=>{if(dragId!==null)dropMaterial(z)});
+});
+function dropMaterial(z){
+ if(dragId===null)return;const q=materials[dragId],el=document.querySelector(`#materialItems [data-i="${dragId}"]`);
+ if(q.zone===z.dataset.zone){if(!done.materials.has(dragId)){done.materials.add(dragId);good(7)}z.appendChild(el);el.draggable=false;el.classList.add('good')}else bad('materials');
+ dragId=null
+}
+function completeMaterials(){if(done.materials.size<materials.length)return toast('先完成全部材料分类');showScreen(4)}
+
+// Task 4
+const faults=[
+ {icon:'🔋',q:'干电池装置错误时，灯泡会怎样？',ans:'不会发亮',opts:['会发亮','不会发亮']},
+ {icon:'〰',q:'电线没有完整连接时，最可能出现什么情况？',ans:'灯泡不会发亮',opts:['灯泡不会发亮','灯泡一定更明亮']},
+ {icon:'🔋🚫',q:'如果电路中没有干电池，灯泡会怎样？',ans:'不会发亮',opts:['会发亮','不会发亮']},
+ {icon:'✂️',q:'为什么剪刀的握把不能使灯泡发亮？',ans:'握把属于塑胶，是电的绝缘体',opts:['握把属于塑胶，是电的绝缘体','剪刀没有颜色','剪刀太轻']}
+];
+faultQs.innerHTML=faults.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerFault(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerFault(i,v,b){if(done.faults.has(i))return;if(v===faults[i].ans){done.faults.add(i);b.classList.add('good');good(12)}else{b.classList.add('bad');bad('faults')}}
+function completeFaults(){if(done.faults.size<faults.length)return toast('先完成故障排查');showScreen(5)}
+
+// Boss
+const boss=[
+ {icon:'🔋🔋🔋',q:'在电路中增加两个干电池，灯泡的亮度会怎样？',ans:'更明亮',opts:['更明亮','更暗','完全没有变化']},
+ {icon:'🔔',q:'如果电路连接完整并把灯泡换成蜂鸣器，会有什么现象？',ans:'蜂鸣器发出声音',opts:['蜂鸣器发出声音','蜂鸣器变成灯泡','完全没有现象']},
+ {icon:'📌🥫',q:'原练习中哪些物体能够使灯泡发亮？',ans:'扣针、铝罐',opts:['扣针、铝罐','棉花、塑料袋','书本、橡皮']},
+ {icon:'☁️',q:'哪一个可以作为另一个电的绝缘体例子？',ans:'棉花',opts:['棉花','铁钥匙','针']}
+];
+bossQs.innerHTML=boss.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerBoss(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerBoss(i,v,b){if(done.boss.has(i))return;if(v===boss[i].ans){done.boss.add(i);b.classList.add('good');good(15)}else{b.classList.add('bad');bad('boss')}}
+function finishGame(){
+ if(done.boss.size<boss.length)return toast('先完成 4 道 Boss 题');
+ showScreen(6);finalScore.textContent=score;
+ const totalMist=Object.values(mistakes).reduce((a,b)=>a+b,0);
+ rank.textContent=totalMist<=2?'五星电路研究员':totalMist<=6?'优秀电路研究员':'继续训练中的电路研究员';
+ const data=[
+  ['电路元件与功能',Math.max(50,100-mistakes.components*10)],
+  ['完整电路',Math.max(50,100-mistakes.circuits*10)],
+  ['导体与绝缘体',Math.max(50,100-mistakes.materials*8)],
+  ['故障排查',Math.max(50,100-mistakes.faults*10)],
+  ['KBAT 综合',Math.max(50,100-mistakes.boss*10)]
+ ];
+ skills.innerHTML=data.map(x=>`<div class="skill"><div class="skillline"><span>${x[0]}</span><span>${x[1]}%</span></div><div class="bar"><i style="width:${x[1]}%"></i></div></div>`).join('');
+}
+setStats();
+</script>
+</body>
+</html>

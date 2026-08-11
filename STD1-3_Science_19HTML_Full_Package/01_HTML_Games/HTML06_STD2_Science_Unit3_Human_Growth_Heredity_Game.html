@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>标准二科学｜单元3 人类｜成长与遗传实验室</title>
+<style>
+:root{
+  --ink:#243d55;--muted:#73879a;--blue:#69b9ff;--violet:#8d7cff;--pink:#ff9fc3;
+  --mint:#64cfa7;--gold:#ffd76d;--good:#52c98b;--bad:#ff747c;
+  --shadow:0 18px 45px rgba(48,75,114,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#f0f7ff;color:var(--ink)}
+button{font:inherit}
+body{
+  background:
+    radial-gradient(circle at 8% 4%,#fff2c6 0 8%,transparent 9%),
+    radial-gradient(circle at 92% 4%,#eee4ff 0 12%,transparent 13%),
+    linear-gradient(180deg,#edf7ff,#fcfbff 75%);
+}
+.app{min-height:100vh;max-width:1180px;margin:auto;padding:18px}
+.top{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border:1px solid #dce9f5;
+  border-radius:22px;padding:12px 16px;box-shadow:var(--shadow);position:sticky;top:10px;z-index:30
+}
+.brand{display:flex;gap:10px;align-items:center;font-weight:900}
+.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#67b8ff,#8d7cff);color:#fff;font-weight:1000}
+.stats{display:flex;gap:8px;flex-wrap:wrap}.badge{background:#f3f8fd;border:1px solid #dce8f3;border-radius:999px;padding:8px 11px;font-weight:800;font-size:.88rem}
+.progress{height:8px;background:#e0eaf4;border-radius:99px;overflow:hidden;margin:12px 3px 0}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#68cfa8,#70bfff);transition:.35s}
+.screen{display:none;animation:fade .25s ease}.screen.active{display:block}@keyframes fade{from{opacity:.2;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hero{margin-top:18px;min-height:620px;border-radius:34px;padding:42px;background:linear-gradient(135deg,#e8f7ff,#f5efff 55%,#fff8de);border:1px solid #dce8f4;box-shadow:var(--shadow)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;min-height:520px}
+.kicker{display:inline-block;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid #dee9f3;font-weight:900;color:#5d7590}
+h1{font-size:clamp(2.8rem,7vw,6rem);line-height:.94;margin:18px 0;letter-spacing:-.04em}
+h1 small{display:block;font-size:.28em;letter-spacing:.11em;color:#70839a;margin-top:16px}
+.lead{font-size:1.1rem;line-height:1.75;color:#60788d;max-width:620px}
+.primary,.secondary{border:0;border-radius:16px;padding:14px 20px;font-weight:1000;cursor:pointer;transition:.2s}
+.primary{background:linear-gradient(135deg,#65b9ff,#8c78ff);color:#fff;box-shadow:0 10px 24px rgba(89,107,216,.23)}
+.secondary{background:#fff;color:#40556d;border:1px solid #dae7f1}.primary:hover,.secondary:hover{transform:translateY(-2px)}
+.timeline-art{position:relative;min-height:430px;display:grid;place-items:center}
+.track{position:absolute;left:8%;right:8%;top:52%;height:12px;border-radius:99px;background:linear-gradient(90deg,#ffd66d,#ff9fbf,#8e7cff,#68b9ff)}
+.stageperson{position:absolute;top:38%;transform:translateY(-50%);width:110px;height:150px;border-radius:28px;background:#fff;border:1px solid #dce9f4;box-shadow:0 14px 28px rgba(48,75,114,.12);display:grid;place-items:center;text-align:center;font-weight:900}
+.p1{left:3%}.p2{left:29%}.p3{right:29%}.p4{right:3%}.stageperson b{display:block;font-size:3.6rem}
+.panel{margin-top:18px;background:#fff;border:1px solid #dce9f4;border-radius:30px;box-shadow:var(--shadow);padding:26px}
+.headrow{display:flex;justify-content:space-between;gap:18px;margin-bottom:20px}.headrow h2{margin:0;font-size:clamp(1.7rem,3vw,2.5rem)}.headrow p{margin:7px 0 0;color:var(--muted);line-height:1.6}
+.stage-tag{white-space:nowrap;background:#f2f7fd;border:1px solid #d9e7f3;border-radius:999px;padding:8px 12px;font-weight:900;color:#58728e}
+.grid{display:grid;gap:14px}.grid4{grid-template-columns:repeat(4,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}.grid2{grid-template-columns:repeat(2,1fr)}
+.card{background:linear-gradient(180deg,#fff,#fafcff);border:2px solid #dfebf5;border-radius:22px;padding:18px;min-height:132px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;cursor:pointer;transition:.2s;user-select:none}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(48,74,111,.12)}.card.good{border-color:var(--good);background:#ecfff5}.card.bad{border-color:var(--bad);background:#fff0f1}.card.selected{border-color:#70baff;background:#eef8ff}
+.pic{font-size:3.2rem}.label{font-weight:1000}.sub{font-size:.86rem;color:var(--muted)}
+.order{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:15px}
+.slot{min-height:155px;border:3px dashed #bfd3e6;border-radius:22px;display:grid;place-items:center;background:#f8fbff;text-align:center;font-weight:900}
+.slot.hover{border-color:#8d7cff;background:#f4efff}
+.drag-item{touch-action:none;cursor:grab}.drag-item.dragging{opacity:.55}
+.question{background:linear-gradient(135deg,#f9fbff,#fff);border:2px solid #dfebf5;border-radius:24px;padding:22px;margin-bottom:14px}
+.question h3{margin:0 0 15px;line-height:1.5}.options{display:grid;gap:10px}.opt{border:2px solid #dfe9f3;background:#fff;border-radius:16px;padding:13px 15px;text-align:left;font-weight:850;cursor:pointer}.opt.good{border-color:var(--good);background:#ecfff5}.opt.bad{border-color:var(--bad);background:#fff0f1}
+.scenario{display:grid;grid-template-columns:170px 1fr;gap:22px;align-items:center}.scene-art{min-height:160px;border-radius:24px;display:grid;place-items:center;font-size:4.8rem;background:linear-gradient(135deg,#e8f6ff,#f6efff)}
+.footer-nav{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
+.result{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;align-items:center}.medal{min-height:320px;border-radius:30px;background:linear-gradient(135deg,#fff2ae,#ffd979);display:grid;place-items:center;text-align:center;padding:30px;box-shadow:inset 0 0 0 8px rgba(255,255,255,.55)}.medal strong{font-size:5rem;display:block}.skills{display:grid;gap:12px}.skill{background:#f8fbff;border:1px solid #deebf5;border-radius:18px;padding:15px}.skillline{display:flex;justify-content:space-between;font-weight:900;margin-bottom:8px}.bar{height:10px;background:#e6eef6;border-radius:99px;overflow:hidden}.bar i{height:100%;display:block;background:linear-gradient(90deg,#65cfa7,#72bfff)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;background:#243d55ee;color:#fff;padding:12px 18px;border-radius:14px;font-weight:900;transition:.2s;z-index:99}.toast.show{opacity:1;transform:translateX(-50%)}
+@media(max-width:820px){.app{padding:10px}.hero{padding:24px;min-height:auto}.hero-grid{grid-template-columns:1fr;min-height:auto}.timeline-art{min-height:370px}.stageperson{width:82px;height:125px}.stageperson b{font-size:2.8rem}.order,.grid4,.grid3,.grid2{grid-template-columns:1fr 1fr}.scenario{grid-template-columns:1fr}.result{grid-template-columns:1fr}.stats .badge:first-child{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="brand"><div class="logo">S2</div><div>科学冒险｜单元 3 人类</div></div>
+  <div class="stats"><span class="badge" id="stageText">任务 1 / 6</span><span class="badge">⭐ <b id="score">0</b></span><span class="badge">❤️ <b id="lives">3</b></span></div>
+</header>
+<div class="progress"><i id="progressBar"></i></div>
+
+<section class="screen active" id="s0">
+  <div class="hero"><div class="hero-grid">
+    <div>
+      <span class="kicker">STANDARD 2 SCIENCE · 人类</span>
+      <h1>成长与遗传实验室<small>HUMAN GROWTH LAB</small></h1>
+      <p class="lead">观察人类从<b>婴儿、儿童、青少年到成年</b>的成长，并认识孩子可能从父母或祖父母继承的特征。</p>
+      <button class="primary" onclick="nextScreen()">开始成长研究</button>
+    </div>
+    <div class="timeline-art">
+      <div class="track"></div>
+      <div class="stageperson p1"><div><b>👶</b>婴儿</div></div>
+      <div class="stageperson p2"><div><b>🧒</b>儿童</div></div>
+      <div class="stageperson p3"><div><b>🧑</b>青少年</div></div>
+      <div class="stageperson p4"><div><b>👩</b>成年</div></div>
+    </div>
+  </div></div>
+</section>
+
+<section class="screen" id="s1">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 1｜成长顺序</h2><p>把四个人生阶段排成从出生到成年的正确顺序。</p></div><span class="stage-tag">成长过程</span></div>
+    <div class="grid grid4" id="stageItems"></div>
+    <div class="order" id="orderSlots"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 返回</button><button class="primary" onclick="completeOrder()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s2">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 2｜遗传特征侦探</h2><p>根据父母或祖父母的特征，选择孩子可能出现的特征。</p></div><span class="stage-tag">遗传</span></div>
+    <div id="traitQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeTraits()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s3">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 3｜对还是错？</h2><p>判断成长和遗传的说明。</p></div><span class="stage-tag">概念判断</span></div>
+    <div id="tfQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeTF()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s4">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 4｜亲子相似度</h2><p>孩子可以和父母长得相似，但不一定所有特征完全相同。</p></div><span class="stage-tag">比较</span></div>
+    <div id="similarQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeSimilar()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s5">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 5｜成长 Boss</h2><p>完成成长差异与遗传来源综合题。</p></div><span class="stage-tag">KBAT BOSS</span></div>
+    <div id="bossQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="finishGame()">查看成绩 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s6">
+  <div class="panel">
+    <div class="headrow"><div><h2>研究完成｜成长与遗传报告</h2><p>系统根据你的作答情况显示掌握度。</p></div><span class="stage-tag">RESULT</span></div>
+    <div class="result">
+      <div class="medal"><div><strong>★</strong><h2 id="rank">成长研究员</h2><p>总分 <b id="finalScore">0</b></p></div></div>
+      <div class="skills" id="skills"></div>
+    </div>
+    <div class="footer-nav"><button class="secondary" onclick="location.reload()">重新挑战</button><button class="primary" onclick="showScreen(0)">回到首页</button></div>
+  </div>
+</section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let current=0,score=0,lives=3;
+const done={order:new Set(),traits:new Set(),tf:new Set(),similar:new Set(),boss:new Set()};
+const mistakes={order:0,traits:0,tf:0,similar:0,boss:0};
+const scoreEl=document.getElementById('score'),livesEl=document.getElementById('lives'),stageText=document.getElementById('stageText'),progressBar=document.getElementById('progressBar');
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1300)}
+function setStats(){scoreEl.textContent=score;livesEl.textContent=lives;stageText.textContent='任务 '+Math.min(current+1,6)+' / 6';progressBar.style.width=(current/6*100)+'%'}
+function showScreen(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('s'+n).classList.add('active');current=n;setStats();window.scrollTo({top:0,behavior:'smooth'})}
+function nextScreen(){showScreen(current+1)} function prevScreen(){showScreen(Math.max(0,current-1))}
+function good(n=10){score+=n;toast('答对了！ +'+n+' ⭐');setStats()} function bad(k){mistakes[k]++;lives=Math.max(0,lives-1);toast('再想一想');setStats()}
+
+// Task 1
+const stages=[{icon:'👶',name:'婴儿',order:1},{icon:'🧒',name:'儿童',order:2},{icon:'🧑',name:'青少年',order:3},{icon:'👩',name:'成年',order:4}];
+stageItems.innerHTML=stages.map((x,i)=>`<div class="card drag-item" draggable="true" data-i="${i}"><div class="pic">${x.icon}</div><div class="label">${x.name}</div></div>`).join('');
+orderSlots.innerHTML=[1,2,3,4].map(i=>`<div class="slot" data-order="${i}">第 ${i} 阶段</div>`).join('');
+let dragId=null;
+document.querySelectorAll('.drag-item').forEach(el=>{
+ el.addEventListener('dragstart',()=>{dragId=+el.dataset.i;el.classList.add('dragging')});
+ el.addEventListener('dragend',()=>el.classList.remove('dragging'));
+ el.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){dragId=+el.dataset.i;toast('手机：点阶段后，再点下面位置')}})
+});
+document.querySelectorAll('.slot').forEach(z=>{
+ z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('hover')});
+ z.addEventListener('dragleave',()=>z.classList.remove('hover'));
+ z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('hover');dropStage(z)});
+ z.addEventListener('click',()=>{if(dragId!==null)dropStage(z)});
+});
+function dropStage(z){
+ if(dragId===null)return;const q=stages[dragId],el=document.querySelector(`#stageItems [data-i="${dragId}"]`);
+ if(+z.dataset.order===q.order){if(!done.order.has(dragId)){done.order.add(dragId);good(8)}z.innerHTML=q.icon+'<br>'+q.name;el.style.visibility='hidden'}
+ else bad('order');dragId=null
+}
+function completeOrder(){if(done.order.size<4)return toast('先排好 4 个成长阶段');showScreen(2)}
+
+// Task 2
+const traitData=[
+ {icon:'💇',q:'奶奶是黑色卷发，孩子可能有哪一种头发？',ans:'黑色卷发',opts:['黑色直发','黑色卷发','褐色卷发']},
+ {icon:'👨‍👩‍👧',q:'爸爸卷发，妈妈直发，孩子的头发可能怎样？',ans:'卷发或直发',opts:['卷发或直发','一定短发','一定没有头发']},
+ {icon:'🎨',q:'祖父有较浅的肤色，孙子的肤色可能怎样？',ans:'较浅的肤色',opts:['较浅的肤色','一定是乌黑头发','一定完全不同']},
+ {icon:'📏',q:'父母有高挑的身材，孩子长大后可能怎样？',ans:'长得高大',opts:['长得矮小','长得高大','一定肥胖']},
+ {icon:'👁',q:'父母的眼球虹膜是褐色的，孩子可能怎样？',ans:'眼球虹膜是褐色的',opts:['眼球虹膜是褐色的','一定是蓝色','一定没有虹膜']},
+ {icon:'🙂',q:'爸爸单眼皮，妈妈双眼皮，孩子可能怎样？',ans:'单眼皮或双眼皮',opts:['都一定双眼皮','都一定单眼皮','单眼皮或双眼皮']}
+];
+traitQs.innerHTML=traitData.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerTrait(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerTrait(i,v,b){if(done.traits.has(i))return;if(v===traitData[i].ans){done.traits.add(i);b.classList.add('good');good(8)}else{b.classList.add('bad');bad('traits')}}
+function completeTraits(){if(done.traits.size<traitData.length)return toast('先完成遗传特征侦探');showScreen(3)}
+
+// Task 3
+const tfData=[
+ {q:'每个人的成长过程都不一样。',ans:'对'},
+ {q:'孩子的特征只遗传母亲。',ans:'错'},
+ {q:'孩子可以遗传父母或家族的某些特征。',ans:'对'},
+ {q:'孩子和父母的所有特征都一定完全相同。',ans:'错'},
+ {q:'孩子和父母可以长得很相似。',ans:'对'}
+];
+tfQs.innerHTML=tfData.map((x,i)=>`<div class="question"><h3>${i+1}. ${x.q}</h3><div class="options"><button class="opt" onclick="answerTF(${i},'对',this)">对</button><button class="opt" onclick="answerTF(${i},'错',this)">错</button></div></div>`).join('');
+function answerTF(i,v,b){if(done.tf.has(i))return;if(v===tfData[i].ans){done.tf.add(i);b.classList.add('good');good(9)}else{b.classList.add('bad');bad('tf')}}
+function completeTF(){if(done.tf.size<tfData.length)return toast('先完成全部判断题');showScreen(4)}
+
+// Task 4
+const simData=[
+ {icon:'👩‍👧',q:'孩子和妈妈都有卷发，这说明什么？',ans:'孩子可能遗传妈妈的头发特征',opts:['孩子可能遗传妈妈的头发特征','所有孩子一定卷发','成长和遗传没有关系']},
+ {icon:'👨‍👦',q:'父亲和孩子都有较高的身材，这可以说明什么？',ans:'孩子可能遗传父亲的身材特征',opts:['孩子可能遗传父亲的身材特征','孩子永远不会长高','所有人身高都一样']},
+ {icon:'👨‍👩‍👧',q:'“孩子和父母长得很相似”最适合说明什么？',ans:'孩子会遗传父母的一些特征',opts:['孩子会遗传父母的一些特征','孩子所有特征完全一样','孩子不会成长']}
+];
+similarQs.innerHTML=simData.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerSimilar(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerSimilar(i,v,b){if(done.similar.has(i))return;if(v===simData[i].ans){done.similar.add(i);b.classList.add('good');good(11)}else{b.classList.add('bad');bad('similar')}}
+function completeSimilar(){if(done.similar.size<simData.length)return toast('先完成亲子相似度挑战');showScreen(5)}
+
+// Boss
+const bossData=[
+ {icon:'🧬',q:'阿里长得矮小，而妈妈也较矮小，这个特征可能来自哪里？',ans:'遗传自妈妈',opts:['遗传自妈妈','来自玩具','和家人完全无关']},
+ {icon:'👶➡️🧑',q:'人类成长时，身体会一直保持婴儿时期的样子吗？',ans:'不会',opts:['会','不会','只有头发会变化']},
+ {icon:'👨‍👩‍👧',q:'孩子只能遗传其中一位家长的特征吗？',ans:'不是',opts:['是','不是','一定只遗传爸爸']},
+ {icon:'🔎',q:'比较孩子和父母的头发、肤色、眼睛等，可以帮助我们研究什么？',ans:'遗传的特征',opts:['遗传的特征','天气变化','磁铁磁力']}
+];
+bossQs.innerHTML=bossData.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerBoss(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerBoss(i,v,b){if(done.boss.has(i))return;if(v===bossData[i].ans){done.boss.add(i);b.classList.add('good');good(15)}else{b.classList.add('bad');bad('boss')}}
+function finishGame(){
+ if(done.boss.size<bossData.length)return toast('先完成 4 道 Boss 题');
+ showScreen(6);finalScore.textContent=score;
+ const totalMist=Object.values(mistakes).reduce((a,b)=>a+b,0);
+ rank.textContent=totalMist<=2?'五星成长研究员':totalMist<=6?'优秀成长研究员':'继续训练中的成长研究员';
+ const data=[
+  ['成长顺序',Math.max(50,100-mistakes.order*10)],
+  ['遗传特征',Math.max(50,100-mistakes.traits*8)],
+  ['概念判断',Math.max(50,100-mistakes.tf*10)],
+  ['亲子相似',Math.max(50,100-mistakes.similar*10)],
+  ['KBAT 综合',Math.max(50,100-mistakes.boss*10)]
+ ];
+ skills.innerHTML=data.map(x=>`<div class="skill"><div class="skillline"><span>${x[0]}</span><span>${x[1]}%</span></div><div class="bar"><i style="width:${x[1]}%"></i></div></div>`).join('');
+}
+setStats();
+</script>
+</body>
+</html>

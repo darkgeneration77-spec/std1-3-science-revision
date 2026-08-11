@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>标准三科学｜单元8 酸与碱｜酸碱侦测实验室</title>
+<style>
+:root{
+  --ink:#2d3850;--muted:#738097;--acid:#ff7e8e;--alkali:#6f8cff;--neutral:#72c9aa;
+  --gold:#ffd66d;--good:#51c98b;--bad:#ff747c;--shadow:0 18px 45px rgba(49,67,101,.14)
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#f5f7fb;color:var(--ink)}
+button{font:inherit}
+body{
+ background:
+ radial-gradient(circle at 8% 5%,#ffe4e9 0 9%,transparent 10%),
+ radial-gradient(circle at 92% 5%,#e4e8ff 0 11%,transparent 12%),
+ linear-gradient(180deg,#f2f7ff,#fffafd 78%);
+}
+.app{min-height:100vh;max-width:1180px;margin:auto;padding:18px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border:1px solid #e0e6ef;border-radius:22px;padding:12px 16px;box-shadow:var(--shadow);position:sticky;top:10px;z-index:30}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}
+.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#ff7f8f,#6f8cff);color:#fff;font-weight:1000}
+.stats{display:flex;gap:8px;flex-wrap:wrap}.badge{background:#f7f9fc;border:1px solid #e0e6ef;border-radius:999px;padding:8px 11px;font-weight:800;font-size:.88rem}
+.progress{height:8px;background:#e4e9f1;border-radius:99px;overflow:hidden;margin:12px 3px 0}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff7f8f,#6f8cff);transition:.35s}
+.screen{display:none;animation:fade .25s ease}.screen.active{display:block}
+@keyframes fade{from{opacity:.15;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hero{margin-top:18px;min-height:620px;border-radius:34px;padding:42px;background:linear-gradient(135deg,#fff0f3,#eef1ff 55%,#effaf6);border:1px solid #e0e6ef;box-shadow:var(--shadow)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;min-height:520px}
+.kicker{display:inline-block;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid #e2e7ef;font-weight:900;color:#68748a}
+h1{font-size:clamp(2.8rem,7vw,6rem);line-height:.94;margin:18px 0;letter-spacing:-.04em}
+h1 small{display:block;font-size:.28em;letter-spacing:.11em;color:#758095;margin-top:16px}
+.lead{font-size:1.1rem;line-height:1.75;color:#68758a;max-width:620px}
+.primary,.secondary{border:0;border-radius:16px;padding:14px 20px;font-weight:1000;cursor:pointer;transition:.2s}
+.primary{background:linear-gradient(135deg,#ff7e8e,#708cff);color:#fff;box-shadow:0 10px 24px rgba(120,102,190,.2)}
+.secondary{background:#fff;color:#4b576b;border:1px solid #dde5ed}
+.primary:hover,.secondary:hover{transform:translateY(-2px)}
+
+.labart{position:relative;min-height:440px}
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:190px;height:190px;border-radius:50%;background:#fff;border:1px solid #e0e6ef;box-shadow:0 18px 40px rgba(49,70,101,.12);display:grid;place-items:center;text-align:center;font-size:4.8rem}
+.cardmini{position:absolute;width:150px;min-height:128px;border-radius:26px;background:#fff;border:1px solid #e0e6ef;box-shadow:0 14px 28px rgba(48,68,100,.1);display:grid;place-items:center;text-align:center;font-weight:900;padding:12px}
+.cardmini b{display:block;font-size:3rem}.a1{left:2%;top:7%}.a2{right:2%;top:7%}.a3{left:2%;bottom:7%}.a4{right:2%;bottom:7%}
+.panel{margin-top:18px;background:#fff;border:1px solid #e0e6ef;border-radius:30px;box-shadow:var(--shadow);padding:26px}
+.headrow{display:flex;justify-content:space-between;gap:18px;margin-bottom:20px}.headrow h2{margin:0;font-size:clamp(1.7rem,3vw,2.5rem)}.headrow p{margin:7px 0 0;color:var(--muted);line-height:1.6}
+.stage-tag{white-space:nowrap;background:#f7f8fc;border:1px solid #e0e6ef;border-radius:999px;padding:8px 12px;font-weight:900;color:#68748b}
+.grid{display:grid;gap:14px}.grid4{grid-template-columns:repeat(4,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}.grid2{grid-template-columns:repeat(2,1fr)}
+.card{background:linear-gradient(180deg,#fff,#fbfcfe);border:2px solid #e2e8ef;border-radius:22px;padding:18px;min-height:132px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;cursor:pointer;transition:.2s;user-select:none}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(46,68,101,.11)}.card.good{border-color:var(--good);background:#ecfff5}.card.bad{border-color:var(--bad);background:#fff0f1}
+.pic{font-size:3.2rem}.label{font-weight:1000}.sub{font-size:.86rem;color:var(--muted)}
+.drop-area{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.drop{min-height:210px;border:3px dashed #c8d1df;border-radius:24px;padding:18px;background:#f9fbfd;display:flex;flex-direction:column;gap:10px;align-items:center}
+.drop h3{margin:0}.drop.acid{background:#fff5f7;border-color:#f2bcc5}.drop.neutral{background:#f2fbf7;border-color:#bae1d1}.drop.alkali{background:#f3f5ff;border-color:#c6cdf5}
+.drop.hover{outline:4px solid rgba(111,140,255,.14)}
+.drag-item{touch-action:none;cursor:grab}.drag-item.dragging{opacity:.55}
+.question{background:linear-gradient(135deg,#fafbfe,#fff);border:2px solid #e2e8ef;border-radius:24px;padding:22px;margin-bottom:14px}
+.question h3{margin:0 0 15px;line-height:1.5}.options{display:grid;gap:10px}
+.opt{border:2px solid #e1e7ee;background:#fff;border-radius:16px;padding:13px 15px;text-align:left;font-weight:850;cursor:pointer}
+.opt.good{border-color:var(--good);background:#ecfff4}.opt.bad{border-color:var(--bad);background:#fff0f1}
+.scenario{display:grid;grid-template-columns:180px 1fr;gap:22px;align-items:center}.scene-art{min-height:170px;border-radius:24px;display:grid;place-items:center;font-size:4.8rem;background:linear-gradient(135deg,#fff0f4,#eef2ff)}
+.litmus{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin:12px 0 18px}.strip{height:64px;border-radius:14px;display:grid;place-items:center;color:#fff;font-weight:1000}.blue{background:#6387e8}.red{background:#ef6774}.arrow{font-size:2rem;font-weight:1000;color:#718096}
+.footer-nav{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
+.result{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;align-items:center}
+.medal{min-height:320px;border-radius:30px;background:linear-gradient(135deg,#fff2ae,#ffd979);display:grid;place-items:center;text-align:center;padding:30px;box-shadow:inset 0 0 0 8px rgba(255,255,255,.55)}.medal strong{font-size:5rem;display:block}
+.skills{display:grid;gap:12px}.skill{background:#f9fbfd;border:1px solid #e0e8ef;border-radius:18px;padding:15px}.skillline{display:flex;justify-content:space-between;font-weight:900;margin-bottom:8px}.bar{height:10px;background:#e7edf3;border-radius:99px;overflow:hidden}.bar i{height:100%;display:block;background:linear-gradient(90deg,#ff7f8f,#6f8cff)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;background:#2d3850ee;color:#fff;padding:12px 18px;border-radius:14px;font-weight:900;transition:.2s;z-index:99}.toast.show{opacity:1;transform:translateX(-50%)}
+@media(max-width:820px){.app{padding:10px}.hero{padding:24px;min-height:auto}.hero-grid{grid-template-columns:1fr;min-height:auto}.labart{min-height:390px}.grid4,.grid3,.grid2{grid-template-columns:1fr 1fr}.drop-area{grid-template-columns:1fr}.scenario{grid-template-columns:1fr}.result{grid-template-columns:1fr}.stats .badge:first-child{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="brand"><div class="logo">S3</div><div>科学冒险｜单元 8 酸与碱</div></div>
+  <div class="stats"><span class="badge" id="stageText">任务 1 / 6</span><span class="badge">⭐ <b id="score">0</b></span><span class="badge">❤️ <b id="lives">3</b></span></div>
+</header>
+<div class="progress"><i id="progressBar"></i></div>
+
+<section class="screen active" id="s0">
+  <div class="hero"><div class="hero-grid">
+    <div>
+      <span class="kicker">STANDARD 3 SCIENCE · 酸与碱</span>
+      <h1>酸碱侦测实验室<small>ACID · ALKALI · NEUTRAL LAB</small></h1>
+      <p class="lead">学习分辨<b>酸性、中性和碱性</b>物质，观察红色与蓝色石蕊试纸的变化，再完成生活用途、天然指示剂和科学测试挑战。</p>
+      <button class="primary" onclick="nextScreen()">启动酸碱侦测器</button>
+    </div>
+    <div class="labart">
+      <div class="center">🧪</div>
+      <div class="cardmini a1"><div><b>🍋</b>酸性</div></div>
+      <div class="cardmini a2"><div><b>💧</b>中性</div></div>
+      <div class="cardmini a3"><div><b>🧼</b>碱性</div></div>
+      <div class="cardmini a4"><div><b>🧻</b>石蕊试纸</div></div>
+    </div>
+  </div></div>
+</section>
+
+<section class="screen" id="s1">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 1｜酸、中、碱的特征</h2><p>根据味道、触觉和石蕊试纸变化完成概念题。</p></div><span class="stage-tag">Set D</span></div>
+    <div id="propertyQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 返回</button><button class="primary" onclick="completeProperties()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s2">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 2｜生活中的酸、碱、中性</h2><p>把用途或物质放到正确性质。</p></div><span class="stage-tag">Set C</span></div>
+    <div class="grid grid3" id="classifyItems"></div>
+    <div class="drop-area">
+      <div class="drop acid" data-zone="acid"><h3>酸性</h3></div>
+      <div class="drop neutral" data-zone="neutral"><h3>中性</h3></div>
+      <div class="drop alkali" data-zone="alkali"><h3>碱性</h3></div>
+    </div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeClassify()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s3">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 3｜石蕊试纸实验</h2><p>判断 X、Y、Z 的性质和颜色变化。</p></div><span class="stage-tag">Set F</span></div>
+    <div id="litmusQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeLitmus()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s4">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 4｜天然指示剂与科学方法</h2><p>不要靠舌头和手乱试。科学课不是生存真人秀。</p></div><span class="stage-tag">Set F / G</span></div>
+    <div id="naturalQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeNatural()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s5">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 5｜酸碱 Boss</h2><p>完成胃药、分类和干燥物质测试挑战。</p></div><span class="stage-tag">Set H / I · KBAT</span></div>
+    <div id="bossQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="finishGame()">查看成绩 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s6">
+  <div class="panel">
+    <div class="headrow"><div><h2>研究完成｜酸碱实验报告</h2><p>系统根据你的作答情况显示掌握度。</p></div><span class="stage-tag">RESULT</span></div>
+    <div class="result">
+      <div class="medal"><div><strong>★</strong><h2 id="rank">酸碱实验研究员</h2><p>总分 <b id="finalScore">0</b></p></div></div>
+      <div class="skills" id="skills"></div>
+    </div>
+    <div class="footer-nav"><button class="secondary" onclick="location.reload()">重新挑战</button><button class="primary" onclick="showScreen(0)">回到首页</button></div>
+  </div>
+</section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let current=0,score=0,lives=3;
+const done={properties:new Set(),classify:new Set(),litmus:new Set(),natural:new Set(),boss:new Set()};
+const mistakes={properties:0,classify:0,litmus:0,natural:0,boss:0};
+const scoreEl=document.getElementById('score'),livesEl=document.getElementById('lives'),stageText=document.getElementById('stageText'),progressBar=document.getElementById('progressBar');
+
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1300)}
+function setStats(){scoreEl.textContent=score;livesEl.textContent=lives;stageText.textContent='任务 '+Math.min(current+1,6)+' / 6';progressBar.style.width=(current/6*100)+'%'}
+function showScreen(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('s'+n).classList.add('active');current=n;setStats();window.scrollTo({top:0,behavior:'smooth'})}
+function nextScreen(){showScreen(current+1)}function prevScreen(){showScreen(Math.max(0,current-1))}
+function good(n=10){score+=n;toast('答对了！ +'+n+' ⭐');setStats()}
+function bad(k){mistakes[k]++;lives=Math.max(0,lives-1);toast('再看看石蕊试纸或物质性质');setStats()}
+
+// Task 1
+const propertyData=[
+ {icon:'🍋',q:'酸性物质常见的味道是什么？',ans:'酸味',opts:['酸味','苦味','淡而无味']},
+ {icon:'🔵➡️🔴',q:'酸性物质会使哪一种石蕊试纸发生变化？',ans:'蓝色石蕊试纸变红',opts:['蓝色石蕊试纸变红','红色石蕊试纸变蓝','两种都一定变绿']},
+ {icon:'💧',q:'中性物质的味道特征是什么？',ans:'淡而无味',opts:['淡而无味','酸味','苦味']},
+ {icon:'🧻',q:'中性物质对石蕊试纸通常怎样？',ans:'保持不变',opts:['保持不变','蓝变红','红变蓝']},
+ {icon:'🧼',q:'碱性物质常见的味道是什么？',ans:'苦味',opts:['苦味','酸味','甜味']},
+ {icon:'✋',q:'碱性物质在触觉上常见的特征是什么？',ans:'滑',opts:['滑','粗','一定很硬']},
+ {icon:'🔴➡️🔵',q:'碱性物质会使哪一种石蕊试纸发生变化？',ans:'红色石蕊试纸变蓝',opts:['红色石蕊试纸变蓝','蓝色石蕊试纸变红','保持红色和蓝色同时变化']}
+];
+propertyQs.innerHTML=propertyData.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerProperty(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerProperty(i,v,b){if(done.properties.has(i))return;if(v===propertyData[i].ans){done.properties.add(i);b.classList.add('good');good(8)}else{b.classList.add('bad');bad('properties')}}
+function completeProperties(){if(done.properties.size<propertyData.length)return toast('先完成酸、中、碱特征题');showScreen(2)}
+
+// Task 2 based on Set C
+const classifyData=[
+ {icon:'🥒',name:'咸菜',zone:'acid'},
+ {icon:'💊',name:'中和胃部的酸性',zone:'alkali'},
+ {icon:'🩹',name:'清洗伤口',zone:'neutral'},
+ {icon:'🧼',name:'制作洗涤用品',zone:'alkali'},
+ {icon:'🌱',name:'改良酸性土壤',zone:'alkali'},
+ {icon:'🍶',name:'白醋作为调味料',zone:'acid'},
+ {icon:'💧',name:'蒸馏水进行试验',zone:'neutral'},
+ {icon:'🧽',name:'清洗污垢',zone:'acid'},
+ {icon:'👁️',name:'清洗眼睛',zone:'neutral'}
+];
+classifyItems.innerHTML=classifyData.map((x,i)=>`<div class="card drag-item" draggable="true" data-i="${i}"><div class="pic">${x.icon}</div><div class="label">${x.name}</div></div>`).join('');
+let dragId=null;
+document.querySelectorAll('.drag-item').forEach(el=>{
+ el.addEventListener('dragstart',()=>{dragId=+el.dataset.i;el.classList.add('dragging')});
+ el.addEventListener('dragend',()=>el.classList.remove('dragging'));
+ el.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){dragId=+el.dataset.i;toast('手机：点项目后，再点酸性、中性或碱性')}})
+});
+document.querySelectorAll('.drop').forEach(z=>{
+ z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('hover')});
+ z.addEventListener('dragleave',()=>z.classList.remove('hover'));
+ z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('hover');dropClassify(z)});
+ z.addEventListener('click',()=>{if(dragId!==null)dropClassify(z)});
+});
+function dropClassify(z){
+ if(dragId===null)return;const q=classifyData[dragId],el=document.querySelector(`#classifyItems [data-i="${dragId}"]`);
+ if(q.zone===z.dataset.zone){if(!done.classify.has(dragId)){done.classify.add(dragId);good(6)}z.appendChild(el);el.draggable=false;el.classList.add('good')}else bad('classify');
+ dragId=null
+}
+function completeClassify(){if(done.classify.size<classifyData.length)return toast('先完成 9 个生活用途分类');showScreen(3)}
+
+// Task 3
+const litmusData=[
+ {icon:'X',q:'X 物质的化学性质是什么？',ans:'酸性',opts:['酸性','中性','碱性']},
+ {icon:'Y',q:'Y 物质的化学性质是什么？',ans:'中性',opts:['酸性','中性','碱性']},
+ {icon:'Z',q:'Z 物质的化学性质是什么？',ans:'碱性',opts:['酸性','中性','碱性']},
+ {icon:'🍋',q:'哪一组可以作为 X 的例子？',ans:'柠檬、醋',opts:['柠檬、醋','蜂蜜、糖水','肥皂、洗碗液']},
+ {icon:'🍯',q:'哪一组可以作为 Y 的例子？',ans:'蜂蜜、糖水',opts:['蜂蜜、糖水','柠檬、醋','肥皂、洗碗液']},
+ {icon:'🧼',q:'哪一组可以作为 Z 的例子？',ans:'肥皂、洗碗液',opts:['肥皂、洗碗液','柠檬、醋','蜂蜜、糖水']}
+];
+litmusQs.innerHTML=litmusData.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerLitmus(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerLitmus(i,v,b){if(done.litmus.has(i))return;if(v===litmusData[i].ans){done.litmus.add(i);b.classList.add('good');good(10)}else{b.classList.add('bad');bad('litmus')}}
+function completeLitmus(){if(done.litmus.size<litmusData.length)return toast('先完成石蕊试纸实验');showScreen(4)}
+
+// Task 4
+const naturalData=[
+ {icon:'🥬',q:'除了石蕊试纸，哪一种天然材料可以测试物质性质？',ans:'紫甘蓝菜',opts:['紫甘蓝菜','木塞','铁块']},
+ {icon:'🌺',q:'以下哪一种也属于原答案列出的天然测试材料？',ans:'木槿',opts:['木槿','塑料袋','铝罐']},
+ {icon:'🟡',q:'以下哪一种也可以作为天然材料？',ans:'姜黄',opts:['姜黄','玻璃杯','剪刀']},
+ {icon:'👅',q:'运用味道可以确认物质是碱性吗？',ans:'不可以',opts:['不可以','可以，而且最科学','只有甜味可以']},
+ {icon:'🧪',q:'要科学地分辨酸性、碱性或中性，应该怎样？',ans:'使用红色和蓝色石蕊试纸进行测试',opts:['使用红色和蓝色石蕊试纸进行测试','直接用舌头尝','只用手摸']},
+ {icon:'🧻',q:'石蕊试纸的主要用途是什么？',ans:'确认物质的化学性质',opts:['确认物质的化学性质','测量长度','判断物体会不会浮']}
+];
+naturalQs.innerHTML=naturalData.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerNatural(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerNatural(i,v,b){if(done.natural.has(i))return;if(v===naturalData[i].ans){done.natural.add(i);b.classList.add('good');good(11)}else{b.classList.add('bad');bad('natural')}}
+function completeNatural(){if(done.natural.size<naturalData.length)return toast('先完成天然指示剂与科学方法');showScreen(5)}
+
+// Task 5
+const bossData=[
+ {icon:'💊',q:'胃药为什么能减轻胃痛？',ans:'胃药是碱性的，能中和胃酸',opts:['胃药是碱性的，能中和胃酸','胃药一定是酸性的','胃药只是让舌头变甜']},
+ {icon:'🥝🥛',q:'猕猴桃、酸奶、蛋黄在原答案分类中属于什么？',ans:'酸性',opts:['酸性','中性','碱性']},
+ {icon:'🪥🧼',q:'牙膏、肥皂、洗碗剂属于什么？',ans:'碱性',opts:['酸性','中性','碱性']},
+ {icon:'🍯☕',q:'人造黄油、红茶、蜂蜜属于什么？',ans:'中性',opts:['酸性','中性','碱性']},
+ {icon:'🧴',q:'把干的石蕊试纸直接放在包装里的漂白粉，会怎样？',ans:'没有反应',opts:['没有反应','一定变红','一定变蓝']},
+ {icon:'💧',q:'为什么干石蕊试纸测试干燥漂白粉不会有反应？',ans:'石蕊试纸不能直接测试干燥物质，物质需是液体或溶于水',opts:['石蕊试纸不能直接测试干燥物质，物质需是液体或溶于水','因为漂白粉没有颜色','因为石蕊试纸只能测温度']}
+];
+bossQs.innerHTML=bossData.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerBoss(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerBoss(i,v,b){if(done.boss.has(i))return;if(v===bossData[i].ans){done.boss.add(i);b.classList.add('good');good(15)}else{b.classList.add('bad');bad('boss')}}
+
+function finishGame(){
+ if(done.boss.size<bossData.length)return toast('先完成全部 Boss 题');
+ showScreen(6);finalScore.textContent=score;
+ const totalMist=Object.values(mistakes).reduce((a,b)=>a+b,0);
+ rank.textContent=totalMist<=2?'五星酸碱实验研究员':totalMist<=7?'优秀酸碱实验研究员':'继续训练中的酸碱实验研究员';
+ const data=[
+  ['酸中碱特征',Math.max(50,100-mistakes.properties*9)],
+  ['生活用途分类',Math.max(50,100-mistakes.classify*7)],
+  ['石蕊试纸',Math.max(50,100-mistakes.litmus*9)],
+  ['天然指示剂与科学方法',Math.max(50,100-mistakes.natural*9)],
+  ['KBAT 综合',Math.max(50,100-mistakes.boss*10)]
+ ];
+ skills.innerHTML=data.map(x=>`<div class="skill"><div class="skillline"><span>${x[0]}</span><span>${x[1]}%</span></div><div class="bar"><i style="width:${x[1]}%"></i></div></div>`).join('');
+}
+setStats();
+</script>
+</body>
+</html>

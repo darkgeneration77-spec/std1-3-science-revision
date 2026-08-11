@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>标准二科学｜单元8 混合物｜混合物分离工坊</title>
+<style>
+:root{
+  --ink:#2c3b50;--muted:#728196;--blue:#67baff;--orange:#ffb66b;--green:#61ca8b;
+  --violet:#8c7cff;--good:#52c98b;--bad:#ff747c;--shadow:0 18px 45px rgba(50,75,110,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#f3f7fb;color:var(--ink)}
+button{font:inherit}
+body{
+  background:
+    radial-gradient(circle at 8% 4%,#fff1c6 0 8%,transparent 9%),
+    radial-gradient(circle at 92% 4%,#e8e3ff 0 11%,transparent 12%),
+    linear-gradient(180deg,#eef6fb,#fbfcff 78%);
+}
+.app{min-height:100vh;max-width:1180px;margin:auto;padding:18px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border:1px solid #dce7ef;border-radius:22px;padding:12px 16px;box-shadow:var(--shadow);position:sticky;top:10px;z-index:30}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#66b9ff,#ffb46a);color:#fff;font-weight:1000}
+.stats{display:flex;gap:8px;flex-wrap:wrap}.badge{background:#f4f8fb;border:1px solid #dce7ef;border-radius:999px;padding:8px 11px;font-weight:800;font-size:.88rem}
+.progress{height:8px;background:#e2eaf1;border-radius:99px;overflow:hidden;margin:12px 3px 0}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffb56a,#6cbcff);transition:.35s}
+.screen{display:none;animation:fade .25s ease}.screen.active{display:block}@keyframes fade{from{opacity:.15;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hero{margin-top:18px;min-height:620px;border-radius:34px;padding:42px;background:linear-gradient(135deg,#eef7ff,#fff4e7 55%,#f2edff);border:1px solid #dde8f0;box-shadow:var(--shadow)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;min-height:520px}
+.kicker{display:inline-block;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid #dfe9f0;font-weight:900;color:#65758a}
+h1{font-size:clamp(2.8rem,7vw,6rem);line-height:.94;margin:18px 0;letter-spacing:-.04em}h1 small{display:block;font-size:.28em;letter-spacing:.11em;color:#718093;margin-top:16px}
+.lead{font-size:1.1rem;line-height:1.75;color:#65768a;max-width:620px}
+.primary,.secondary{border:0;border-radius:16px;padding:14px 20px;font-weight:1000;cursor:pointer;transition:.2s}.primary{background:linear-gradient(135deg,#66b9ff,#ffb46a);color:#fff;box-shadow:0 10px 24px rgba(103,118,185,.2)}.secondary{background:#fff;color:#46566b;border:1px solid #dce7ef}.primary:hover,.secondary:hover{transform:translateY(-2px)}
+.mixart{position:relative;min-height:440px}
+.jar{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:240px;height:310px;border:10px solid #8bb9d3;border-top:18px solid #6f9eb8;border-radius:18px 18px 42px 42px;background:linear-gradient(to top,#8fd8ff 0 50%,#f5fbff 50%);overflow:hidden}
+.jar:before{content:"";position:absolute;left:20px;right:20px;bottom:20px;height:80px;background:radial-gradient(circle at 20% 30%,#f4df79 0 8px,transparent 9px),radial-gradient(circle at 50% 50%,#6a4a35 0 10px,transparent 11px),radial-gradient(circle at 80% 30%,#e8b873 0 9px,transparent 10px)}
+.tool{position:absolute;background:#fff;border:1px solid #dce7ef;border-radius:18px;padding:12px 14px;font-weight:900;box-shadow:0 12px 24px rgba(53,78,105,.11)}
+.t1{left:2%;top:9%}.t2{right:2%;top:14%}.t3{left:1%;bottom:12%}.t4{right:1%;bottom:8%}
+.panel{margin-top:18px;background:#fff;border:1px solid #dce8f0;border-radius:30px;box-shadow:var(--shadow);padding:26px}
+.headrow{display:flex;justify-content:space-between;gap:18px;margin-bottom:20px}.headrow h2{margin:0;font-size:clamp(1.7rem,3vw,2.5rem)}.headrow p{margin:7px 0 0;color:var(--muted);line-height:1.6}.stage-tag{white-space:nowrap;background:#f4f8fb;border:1px solid #dce7ef;border-radius:999px;padding:8px 12px;font-weight:900;color:#62758a}
+.grid{display:grid;gap:14px}.grid4{grid-template-columns:repeat(4,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}.grid2{grid-template-columns:repeat(2,1fr)}
+.card{background:linear-gradient(180deg,#fff,#fafcff);border:2px solid #e1eaf1;border-radius:22px;padding:18px;min-height:132px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;cursor:pointer;transition:.2s;user-select:none}.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(47,74,105,.12)}.card.good{border-color:var(--good);background:#ecfff5}.card.bad{border-color:var(--bad);background:#fff0f1}
+.pic{font-size:3.2rem}.label{font-weight:1000}.sub{font-size:.86rem;color:var(--muted)}
+.drop-area{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.drop{min-height:215px;border:3px dashed #c3d3df;border-radius:24px;padding:18px;background:#f8fbfd;display:flex;flex-direction:column;gap:10px;align-items:center}.drop h3{margin:0}.drop.hover{border-color:#8b7cff;background:#f3f0ff}.drag-item{touch-action:none;cursor:grab}.drag-item.dragging{opacity:.55}
+.question{background:linear-gradient(135deg,#f9fbfd,#fff);border:2px solid #e1eaf1;border-radius:24px;padding:22px;margin-bottom:14px}.question h3{margin:0 0 15px;line-height:1.5}.options{display:grid;gap:10px}.opt{border:2px solid #e0e8ef;background:#fff;border-radius:16px;padding:13px 15px;text-align:left;font-weight:850;cursor:pointer}.opt.good{border-color:var(--good);background:#ecfff4}.opt.bad{border-color:var(--bad);background:#fff0f1}
+.scenario{display:grid;grid-template-columns:170px 1fr;gap:22px;align-items:center}.scene-art{min-height:160px;border-radius:24px;display:grid;place-items:center;font-size:4.8rem;background:linear-gradient(135deg,#eef7ff,#fff3e6)}
+.footer-nav{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
+.result{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;align-items:center}.medal{min-height:320px;border-radius:30px;background:linear-gradient(135deg,#fff2ae,#ffd979);display:grid;place-items:center;text-align:center;padding:30px;box-shadow:inset 0 0 0 8px rgba(255,255,255,.55)}.medal strong{font-size:5rem;display:block}.skills{display:grid;gap:12px}.skill{background:#f9fbfd;border:1px solid #e0e9f0;border-radius:18px;padding:15px}.skillline{display:flex;justify-content:space-between;font-weight:900;margin-bottom:8px}.bar{height:10px;background:#e7edf3;border-radius:99px;overflow:hidden}.bar i{height:100%;display:block;background:linear-gradient(90deg,#ffb56a,#6cbcff)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;background:#2c3b50ee;color:#fff;padding:12px 18px;border-radius:14px;font-weight:900;transition:.2s;z-index:99}.toast.show{opacity:1;transform:translateX(-50%)}
+@media(max-width:820px){.app{padding:10px}.hero{padding:24px;min-height:auto}.hero-grid{grid-template-columns:1fr;min-height:auto}.mixart{min-height:390px}.grid4,.grid3,.grid2{grid-template-columns:1fr 1fr}.drop-area{grid-template-columns:1fr}.scenario{grid-template-columns:1fr}.result{grid-template-columns:1fr}.stats .badge:first-child{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="brand"><div class="logo">S2</div><div>科学冒险｜单元 8 混合物</div></div>
+  <div class="stats"><span class="badge" id="stageText">任务 1 / 6</span><span class="badge">⭐ <b id="score">0</b></span><span class="badge">❤️ <b id="lives">3</b></span></div>
+</header>
+<div class="progress"><i id="progressBar"></i></div>
+
+<section class="screen active" id="s0">
+  <div class="hero"><div class="hero-grid">
+    <div>
+      <span class="kicker">STANDARD 2 SCIENCE · 混合物</span>
+      <h1>混合物分离工坊<small>MIXTURE SEPARATION WORKSHOP</small></h1>
+      <p class="lead">研究哪些物质<b>会溶解、不会溶解</b>，学习用磁铁、筛子、漂浮法、滤纸与蒸发等方法分离混合物，再探索影响溶解速度的因素。</p>
+      <button class="primary" onclick="nextScreen()">开始分离实验</button>
+    </div>
+    <div class="mixart">
+      <div class="jar"></div>
+      <div class="tool t1">🧲 磁铁</div><div class="tool t2">🧺 筛子</div><div class="tool t3">🧻 滤纸</div><div class="tool t4">🔥 蒸发</div>
+    </div>
+  </div></div>
+</section>
+
+<section class="screen" id="s1">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 1｜会溶解还是不会溶解？</h2><p>把物质分成两类。</p></div><span class="stage-tag">溶解分类</span></div>
+    <div class="grid grid4" id="dissolveItems"></div>
+    <div class="drop-area">
+      <div class="drop" data-zone="yes"><h3>会溶解在水里</h3></div>
+      <div class="drop" data-zone="no"><h3>不会溶解在水里</h3></div>
+    </div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 返回</button><button class="primary" onclick="completeDissolve()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s2">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 2｜选择正确分离方法</h2><p>根据混合物选择合适的方法。</p></div><span class="stage-tag">分离方法</span></div>
+    <div id="separateQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeSeparate()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s3">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 3｜怎样让糖更快溶解？</h2><p>探索搅拌、热水和颗粒大小对溶解速度的影响。</p></div><span class="stage-tag">溶解速度</span></div>
+    <div id="speedQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeSpeed()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s4">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 4｜蒸发与过滤</h2><p>把混合物分回原来的物质。</p></div><span class="stage-tag">实验应用</span></div>
+    <div id="processQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="completeProcess()">下一关 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s5">
+  <div class="panel">
+    <div class="headrow"><div><h2>任务 5｜混合物 Boss</h2><p>完成磁铁、糖水、盐水和冰糖综合挑战。</p></div><span class="stage-tag">KBAT BOSS</span></div>
+    <div id="bossQs"></div>
+    <div class="footer-nav"><button class="secondary" onclick="prevScreen()">← 上一关</button><button class="primary" onclick="finishGame()">查看成绩 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="s6">
+  <div class="panel">
+    <div class="headrow"><div><h2>研究完成｜混合物实验报告</h2><p>系统根据你的作答情况显示掌握度。</p></div><span class="stage-tag">RESULT</span></div>
+    <div class="result">
+      <div class="medal"><div><strong>★</strong><h2 id="rank">混合物研究员</h2><p>总分 <b id="finalScore">0</b></p></div></div>
+      <div class="skills" id="skills"></div>
+    </div>
+    <div class="footer-nav"><button class="secondary" onclick="location.reload()">重新挑战</button><button class="primary" onclick="showScreen(0)">回到首页</button></div>
+  </div>
+</section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let current=0,score=0,lives=3;
+const done={dissolve:new Set(),separate:new Set(),speed:new Set(),process:new Set(),boss:new Set()};
+const mistakes={dissolve:0,separate:0,speed:0,process:0,boss:0};
+const scoreEl=document.getElementById('score'),livesEl=document.getElementById('lives'),stageText=document.getElementById('stageText'),progressBar=document.getElementById('progressBar');
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1300)}
+function setStats(){scoreEl.textContent=score;livesEl.textContent=lives;stageText.textContent='任务 '+Math.min(current+1,6)+' / 6';progressBar.style.width=(current/6*100)+'%'}
+function showScreen(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('s'+n).classList.add('active');current=n;setStats();window.scrollTo({top:0,behavior:'smooth'})}
+function nextScreen(){showScreen(current+1)}function prevScreen(){showScreen(Math.max(0,current-1))}
+function good(n=10){score+=n;toast('答对了！ +'+n+' ⭐');setStats()}function bad(k){mistakes[k]++;lives=Math.max(0,lives-1);toast('再想一想');setStats()}
+
+// Task 1
+const dissolveData=[
+ {icon:'🍬',name:'糖',zone:'yes'},{icon:'🧂',name:'盐',zone:'yes'},{icon:'🍯',name:'蜂蜜',zone:'yes'},{icon:'🧼',name:'肥皂',zone:'yes'},
+ {icon:'🌾',name:'面粉',zone:'no'},{icon:'🥜',name:'花生',zone:'no'},{icon:'🍃',name:'茶叶',zone:'no'},{icon:'🏖️',name:'沙',zone:'no'}
+];
+dissolveItems.innerHTML=dissolveData.map((x,i)=>`<div class="card drag-item" draggable="true" data-i="${i}"><div class="pic">${x.icon}</div><div class="label">${x.name}</div></div>`).join('');
+let dragId=null;
+document.querySelectorAll('.drag-item').forEach(el=>{
+ el.addEventListener('dragstart',()=>{dragId=+el.dataset.i;el.classList.add('dragging')});
+ el.addEventListener('dragend',()=>el.classList.remove('dragging'));
+ el.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){dragId=+el.dataset.i;toast('手机：点物质后，再点下面分类箱')}})
+});
+document.querySelectorAll('.drop').forEach(z=>{
+ z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('hover')});
+ z.addEventListener('dragleave',()=>z.classList.remove('hover'));
+ z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('hover');dropDissolve(z)});
+ z.addEventListener('click',()=>{if(dragId!==null)dropDissolve(z)});
+});
+function dropDissolve(z){
+ if(dragId===null)return;const q=dissolveData[dragId],el=document.querySelector(`#dissolveItems [data-i="${dragId}"]`);
+ if(q.zone===z.dataset.zone){if(!done.dissolve.has(dragId)){done.dissolve.add(dragId);good(7)}z.appendChild(el);el.draggable=false;el.classList.add('good')}else bad('dissolve');
+ dragId=null
+}
+function completeDissolve(){if(done.dissolve.size<dissolveData.length)return toast('先完成全部溶解分类');showScreen(2)}
+
+// Task 2
+const separate=[
+ {icon:'🧲',q:'要从混合物中取出铁钉，最适合用什么方法？',ans:'用磁铁',opts:['用磁铁','用筛子','用手']},
+ {icon:'🧺',q:'要分开大小不同的固体颗粒，可以使用什么？',ans:'用筛子',opts:['用筛子','用磁铁','用蒸发']},
+ {icon:'🌊',q:'一些物体可以利用什么方法，根据浮沉情况分开？',ans:'用漂浮法',opts:['用漂浮法','用磁铁','用火加热']},
+ {icon:'🧻🔥',q:'原练习中哪一种方法组合可用于某些混合物分离？',ans:'用滤纸和蒸发',opts:['用滤纸和蒸发','只用手','只用磁铁']}
+];
+separateQs.innerHTML=separate.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerSeparate(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerSeparate(i,v,b){if(done.separate.has(i))return;if(v===separate[i].ans){done.separate.add(i);b.classList.add('good');good(10)}else{b.classList.add('bad');bad('separate')}}
+function completeSeparate(){if(done.separate.size<separate.length)return toast('先完成分离方法');showScreen(3)}
+
+// Task 3
+const speed=[
+ {icon:'🥄',q:'怎样让糖更快溶解？',ans:'搅拌',opts:['搅拌','停止搅拌','把水倒掉']},
+ {icon:'🔥💧',q:'哪一种水能让糖更快溶解？',ans:'热水',opts:['热水','冰水','都一样']},
+ {icon:'🧊🍬',q:'糖的体积怎样时会溶解得更快？',ans:'较小',opts:['较小','较大','没有关系']},
+ {icon:'🥄⚡',q:'搅拌速度越快，糖溶解得怎样？',ans:'越快',opts:['越快','越慢','不会溶解']}
+];
+speedQs.innerHTML=speed.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerSpeed(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerSpeed(i,v,b){if(done.speed.has(i))return;if(v===speed[i].ans){done.speed.add(i);b.classList.add('good');good(11)}else{b.classList.add('bad');bad('speed')}}
+function completeSpeed(){if(done.speed.size<speed.length)return toast('先完成溶解速度实验');showScreen(4)}
+
+// Task 4
+const process=[
+ {icon:'🧂💧',q:'怎样把盐从盐水中分离出来？',ans:'把水加热直到水干为止',opts:['把水加热直到水干为止','一直加冷水','用磁铁']},
+ {icon:'🥣',q:'如果糖已经溶解在水里，形成的是什么？',ans:'糖水',opts:['糖水','沙水','铁水']},
+ {icon:'🧂💧',q:'盐水可以分成哪两种物质？',ans:'水和盐',opts:['水和盐','米和水','糖和油']},
+ {icon:'🧊',q:'如果想降低水的温度，可以怎样做？',ans:'在水中加入冰块',opts:['在水中加入冰块','不断加热','加入更多糖']}
+];
+processQs.innerHTML=process.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerProcess(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerProcess(i,v,b){if(done.process.has(i))return;if(v===process[i].ans){done.process.add(i);b.classList.add('good');good(12)}else{b.classList.add('bad');bad('process')}}
+function completeProcess(){if(done.process.size<process.length)return toast('先完成过滤与蒸发题');showScreen(5)}
+
+// Boss
+const boss=[
+ {icon:'🔩',q:'玻璃弹子和铁钉混在一起，怎样最快取出铁钉？',ans:'用磁铁',opts:['用磁铁','用筛子','用手电筒']},
+ {icon:'🍬🌽',q:'糖和玉米粒放进水里，会出现什么现象？',ans:'糖会溶解，玉米粒不会溶解',opts:['糖会溶解，玉米粒不会溶解','两者都一定溶解','两者都一定消失']},
+ {icon:'🧊🍬',q:'研究冰糖溶解速度时，可以改变哪一个因素？',ans:'冰糖的大小',opts:['冰糖的大小','杯子的颜色','桌子的高度']},
+ {icon:'🥤',q:'糖水通常是什么味道？',ans:'甜',opts:['甜','咸','苦']}
+];
+bossQs.innerHTML=boss.map((x,i)=>`<div class="question"><div class="scenario"><div class="scene-art">${x.icon}</div><div><h3>${x.q}</h3><div class="options">${x.opts.map(v=>`<button class="opt" onclick="answerBoss(${i},'${v}',this)">${v}</button>`).join('')}</div></div></div></div>`).join('');
+function answerBoss(i,v,b){if(done.boss.has(i))return;if(v===boss[i].ans){done.boss.add(i);b.classList.add('good');good(15)}else{b.classList.add('bad');bad('boss')}}
+function finishGame(){
+ if(done.boss.size<boss.length)return toast('先完成 4 道 Boss 题');
+ showScreen(6);finalScore.textContent=score;
+ const totalMist=Object.values(mistakes).reduce((a,b)=>a+b,0);
+ rank.textContent=totalMist<=2?'五星混合物研究员':totalMist<=6?'优秀混合物研究员':'继续训练中的混合物研究员';
+ const data=[
+  ['溶解与不溶解',Math.max(50,100-mistakes.dissolve*8)],
+  ['分离方法',Math.max(50,100-mistakes.separate*10)],
+  ['溶解速度',Math.max(50,100-mistakes.speed*10)],
+  ['过滤与蒸发',Math.max(50,100-mistakes.process*10)],
+  ['KBAT 综合',Math.max(50,100-mistakes.boss*10)]
+ ];
+ skills.innerHTML=data.map(x=>`<div class="skill"><div class="skillline"><span>${x[0]}</span><span>${x[1]}%</span></div><div class="bar"><i style="width:${x[1]}%"></i></div></div>`).join('');
+}
+setStats();
+</script>
+</body>
+</html>
